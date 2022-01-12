@@ -1,0 +1,67 @@
+<div class="container-fluid">
+  <form [formGroup]="form">
+    <div class="card bg-dark mt-3 border-top-0 border-left-0 border-right-0 border-bottom-1 border-light">
+      <div class="card-header">
+        <button [disabled]='invalidForm' (click)="toReceiver()" class="btn btn-tool btn-outline-light btn-sm float-right">
+          <i class="fa fa-arrow-circle-right fa-lg" aria-hidden="true"></i>
+        </button>
+        <h5 class="text-light">Sender</h5>
+      </div>
+    </div>
+    <!-- <div class="card-body"> -->
+    <div class="row mt-2">
+      <div class="col-12">
+        <label for="name" class="text-light">Name</label>
+        <input formControlName="shipperName" id="name" type="text" class="form-control bg-dark" placeholder="Name">
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-6 mt-2">
+        <label for="phone" class="text-light">Phone No</label>
+        <input id="phone" formControlName="shipperContact" type="text" class="form-control bg-dark" placeholder="Phone No">
+      </div>
+
+      <div class="col-6 mt-2">
+        <label for="email" class="text-light">Email</label>
+        <input formControlName="shipperEmail" id="email" type="text" class="form-control bg-dark" placeholder="Email">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 mt-2">
+        <label for="address1" class="text-light">Address 1</label>
+        <input formControlName="shipperAddress1" id="address1" type="text" class="form-control bg-dark" placeholder="Address 1">
+      </div>
+
+      <div class="col-12 mt-2">
+        <label for="address2" class="text-light">Address 2</label>
+        <input formControlName="shipperAddress2" id="address2" type="text" class="form-control bg-dark" placeholder="Address 2">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-6">
+        <label for="postcode" class="text-light">Postcode</label>
+        <input formControlName="shipperPostcode" id="postcode" type="text" class="form-control bg-dark" placeholder="Postcode">
+      </div>
+      <div class="col-6">
+        <label for="city" class="text-light">city</label>
+        <input formControlName="shipperCity" id="city" type="text" class="form-control bg-dark" placeholder="city">
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-6">
+        <label for="state" class="text-light">State</label>
+        <input formControlName="shipperState" id="state" type="text" class="form-control bg-dark" placeholder="State">
+      </div>
+      <div class="col-6">
+        <label for="country" class="text-light">Country</label>
+        <select formControlName="shipperCountryCode" id="country" class="form-control bg-dark" placeholder="Country">
+          <option readonle >Select Country</option>
+          <option value="MY">Malaysia</option>
+        </select>
+      </div>
+    </div>
+
+  </form>
+</div>

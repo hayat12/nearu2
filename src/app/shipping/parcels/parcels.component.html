@@ -1,0 +1,28 @@
+<div class="container-fluid">
+  <div class="card bg-dark mt-3 border-top-0 border-left-0 border-right-0 border-bottom-1 border-light">
+    <div class="card-header">
+
+      <button (click)="createNew()" class="btn btn-outline-light ml-2 btn-sm float-right">
+        <i class="fa fa-plus" aria-hidden="true"></i> New
+      </button>
+
+      <button *ngIf="carts.length > 0" (click)="checkOut()" class="btn btn-outline-light btn-sm float-right">
+        Check Out
+      </button>
+      <h5 class="text-light">Parcels</h5>
+    </div>
+  </div>
+
+  <div class="list" *ngIf="carts.length > 0">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item bg-dark text-light">Cras justo odio</li>
+      <li class="list-group-item bg-dark text-light">Dapibus ac facilisis in</li>
+      <li class="list-group-item bg-dark text-light">Morbi leo risus</li>
+      <li class="list-group-item bg-dark text-light">Porta ac consectetur ac</li>
+      <li class="list-group-item bg-dark text-light">Vestibulum at eros</li>
+    </ul>
+  </div>
+  <div *ngIf="carts.length < 1" class="text-center">
+    <span class="mt-5">No Record </span>
+  </div>
+</div>
