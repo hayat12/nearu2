@@ -30,6 +30,9 @@ export class ParcelsComponent extends SettingHeader implements OnInit {
 
   ngOnInit(): void {
     this.carts = this.getCart();
+    if(this.carts.length < 1){
+      this.createNew();
+    }
   }
 
   checkOut(){
