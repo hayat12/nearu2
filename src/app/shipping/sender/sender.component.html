@@ -2,7 +2,7 @@
   <form [formGroup]="form">
     <div class="card bg-dark mt-3 border-top-0 border-left-0 border-right-0 border-bottom-1 border-light">
       <div class="card-header">
-        <button [disabled]='invalidForm' (click)="toReceiver()" class="btn btn-tool btn-outline-light btn-sm float-right">
+        <button type="button" [disabled]='invalidForm' (click)="toReceiver()" class="btn btn-tool btn-outline-light btn-sm float-right">
           <i class="fa fa-arrow-circle-right fa-lg" aria-hidden="true"></i>
         </button>
         <h5 class="text-light">Sender</h5>

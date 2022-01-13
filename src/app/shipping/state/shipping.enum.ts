@@ -7,3 +7,8 @@ export enum EnumScreen{
   COMPLETED = "completed",
   CART = "cart",
 }
+
+export enum ActionsTypes{
+  DELETE = "Delete",
+  CHECK_OUT= "Checkout"
+}

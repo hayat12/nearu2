@@ -1,4 +1,5 @@
 import { FormGroup } from "@angular/forms";
+import { environment } from "src/environments/environment";
 import { CourierInterface } from "./state/  courier/courier.interface";
 import { CartInterface, ParcelDetailsInterface } from "./state/parcel/parcels.interface";
 import { ReceiverInterface } from "./state/receiver/receiver.interface";
@@ -7,6 +8,7 @@ import { EnumScreen } from "./state/shipping.enum";
 
 export class SettingHeader {
   form:FormGroup;
+  readonly baseUrl:string = environment.baseUrl;
 
   get invalidForm():boolean{
     return this.form.invalid;
@@ -60,7 +62,7 @@ export class SettingHeader {
   getParcelDetails(){
     const parcel_details:any = localStorage.getItem(EnumScreen.PARCEL_DETAILS);
     const x:ParcelDetailsInterface = JSON.parse(parcel_details);
-    return this.isEmpty(x)? null :{...x} as ParcelDetailsInterface;
+    return {...x} as ParcelDetailsInterface;
   }
 
   /**
@@ -89,7 +91,8 @@ export class SettingHeader {
        const _cart:CartInterface = {
          sender: this.getSender(),
          receiver: this.getReceiver(),
-         courier: this.getCourierDetails()
+         courier: this.getCourierDetails(),
+         parcel_details: this.getParcelDetails()
        }
        const _carts:CartInterface[] = [
          _cart,
@@ -106,6 +109,13 @@ export class SettingHeader {
       const courier:any = localStorage.getItem(EnumScreen.CART);
       const x:CartInterface[] = JSON.parse(courier);
       return this.isEmpty(x)?[]:x as CartInterface[];
+    }
+
+    /**
+     * get Cart from localStorage
+     */
+    updateCart(cart:CartInterface[]){
+      localStorage.setItem(EnumScreen.CART, JSON.stringify(cart));
     }
 
     /**

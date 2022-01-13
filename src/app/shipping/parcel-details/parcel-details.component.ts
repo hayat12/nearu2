@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SettingHeader } from '../setting-header';
 import { parcelDetails } from '../state/parcel/parcels';
@@ -41,6 +41,7 @@ export class ParcelDetailsComponent extends SettingHeader implements OnInit {
         width: [null, [Validators.required]],
         length: [null, [Validators.required]],
         height: [null, [Validators.required]],
+        orderReference: [null, [Validators.required]],
         weight: [null, [Validators.required]],
       }
     );

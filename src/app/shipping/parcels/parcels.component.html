@@ -2,27 +2,64 @@
   <div class="card bg-dark mt-3 border-top-0 border-left-0 border-right-0 border-bottom-1 border-light">
     <div class="card-header">
 
-      <button (click)="createNew()" class="btn btn-outline-light ml-2 btn-sm float-right">
+      <button type="button" (click)="createNew()" class="btn btn-outline-light ml-2 btn-sm float-right">
         <i class="fa fa-plus" aria-hidden="true"></i> New
       </button>
-
-      <button *ngIf="carts.length > 0" (click)="checkOut()" class="btn btn-outline-light btn-sm float-right">
+<!-- (click)="checkOut()"  -->
+      <button type="button" *ngIf="carts.length > 0" data-toggle="modal" (click)="checkOut()" class="btn btn-outline-light btn-sm float-right">
         Check Out
       </button>
       <h5 class="text-light">Parcels</h5>
     </div>
   </div>
 
-  <div class="list" *ngIf="carts.length > 0">
+  <div class="list mt-1" *ngIf="carts.length > 0">
     <ul class="list-group list-group-flush">
-      <li class="list-group-item bg-dark text-light">Cras justo odio</li>
-      <li class="list-group-item bg-dark text-light">Dapibus ac facilisis in</li>
-      <li class="list-group-item bg-dark text-light">Morbi leo risus</li>
-      <li class="list-group-item bg-dark text-light">Porta ac consectetur ac</li>
-      <li class="list-group-item bg-dark text-light">Vestibulum at eros</li>
+      <li *ngFor="let o of carts; let i=index" class="list-group-item bg-dark text-light">
+        <div class="row">
+          <div class="col-3">
+            <img style="height: 35px;" [src]="o.courier.businessLogo" class="rounded" alt="Cinque Terre">
+          </div>
+          <div class="col-5">
+            <h6>{{o.receiver.receiverName}}</h6>
+            <small>
+              {{o.courier.businessName}}
+            </small>
+          </div>
+          <div class="col-4">
+            <button type="button" (click)="deleteItem(i)" class="btn btn-tool float-right">
+              <i class="fa fa-times-circle fa-m text-danger" aria-hidden="true"></i>
+            </button>
+            <br>
+            <small class="float-right">{{o.courier.amount | currency:"RM "}}</small>
+          </div>
+        </div>
+      </li>
     </ul>
   </div>
-  <div *ngIf="carts.length < 1" class="text-center">
-    <span class="mt-5">No Record </span>
+
+  <div *ngIf="carts.length < 1" class="text-center mt-5">
+    <span class="text-light">No Record </span>
+  </div>
+</div>
+
+
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content bg-dark text-light" *ngIf="modal">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">{{modal.title}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{modal.message}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">{{modal.close}}</button>
+        <button type="button" class="btn btn-success" (click)="confirm()">{{modal.confirm}}</button>
+      </div>
+    </div>
   </div>
 </div>

@@ -2,10 +2,10 @@
   <form [formGroup]="form">
     <div class="card bg-dark mt-3 border-top-0 border-left-0 border-right-0 border-bottom-1 border-light">
       <div class="card-header">
-        <button [disabled]="invalidForm" (click)="toParceDetials()" class="btn btn-outline-light ml-2 btn-sm float-right">
+        <button type="button" [disabled]="invalidForm" (click)="toParceDetials()" class="btn btn-outline-light ml-2 btn-sm float-right">
           <i class="fa fa-arrow-circle-right fa-lg text-light" aria-hidden="true"></i>
         </button>
-        <button (click)="toSender()" class="btn btn-outline-light btn-sm float-right">
+        <button type="button" (click)="toSender()" class="btn btn-outline-light btn-sm float-right">
           <i class="fa fa-arrow-circle-left fa-lg text-light" aria-hidden="true"></i>
         </button>
         <h5 class="text-light">Receiver</h5>

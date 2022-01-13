@@ -1,1 +1,4 @@
 @import "~styles.scss";
+body{
+  font-family: 'font-family: 'Open Sans', sans-serif;' !important;
+}
