@@ -34,29 +34,28 @@ export function sendParcelData(carts: CartInterface[]): SendParcel[] {
       receiverPostcode: o.receiver.receiverCountryCode,
       receiverState: o.receiver.receiverState,
       receiverCountryCode: o.receiver.receiverCountryCode,
-
-      pickupHubId: "",
       courierId: o.courier.businessId,
       lineItems:[
         {
           productId: "PAR",
-          unitAmount: 0,
-          unitTaxAmount: 0,
+          unitAmount: o.courier.amount,
+          unitTaxAmount: o.courier.taxAmount,
           quantity: 1
         }
       ],
-      chargeLines:[
-        {
-          id: "",
-          name: "",
-          description: "",
-          sku: "",
-          weight: 0,
-          quantity: 1,
-          unitPrice: 0,
-          currency: "MYR",
-        }
-      ]
+      chargeLines:[]
+      // [
+      //   {
+      //     id: "",
+      //     name: "",
+      //     description: "",
+      //     sku: "",
+      //     weight: 0,
+      //     quantity: 1,
+      //     unitPrice: 0,
+      //     currency: "MYR",
+      //   }
+      // ]
     };
   });
 }

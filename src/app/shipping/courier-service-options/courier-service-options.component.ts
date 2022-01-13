@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
+import { ServiceService } from '../services/service.service';
 import { SettingHeader } from '../setting-header';
 import { courierServiceData } from '../state/  courier/courier-service';
-import { CourierInterface } from '../state/  courier/courier.interface';
+import { CourierInterface, CourierParamsInterface } from '../state/  courier/courier.interface';
 
 @Component({
   selector: 'app-courier-service-options',
@@ -38,12 +40,32 @@ export class CourierServiceOptionsComponent extends SettingHeader implements OnI
   constructor(
     private router: Router,
     private activateRouter: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private _service:ServiceService
   ) { super() }
 
   ngOnInit(): void {
     this.createFrom();
+    this.loadCourierServices();
     this.loadCourierData();
+  }
+
+  loadCourierServices(){
+    var _params:CourierParamsInterface = {
+      ProductId:"H2D",
+      ServiceTypeId:"EXP",
+      PackageTypeId:"PAR",
+      // PostcodeFrom:null,
+      // CountryFrom:null,
+      // PostcodeTo:null,
+      // CountryTo:null,
+      // Weight:5
+    };
+    this._service.get_CourierServicesOption(_params)
+    .pipe(
+      tap((res)=>console.log(res))
+    )
+    .subscribe();
   }
 
   loadCourierData(){
