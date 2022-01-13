@@ -1,22 +1,11 @@
 <app-app-header [title]="'Parcel Details'"></app-app-header>
 <div class="container-fluid">
   <form [formGroup]="form">
-    <!-- <div class="card bg-dark mt-3 border-top-0 border-left-0 border-right-0 border-bottom-1 border-light">
-      <div class="card-header">
-        <button type="button" [disabled]="invalidForm" (click)="toParceOptions()" class="btn btn-tool btn-outline-light ml-2 btn-sm float-right">
-          <i class="fa fa-arrow-circle-right fa-lg" aria-hidden="true"></i>
-        </button>
-        <button type="button" (click)="toReceiver()" class="btn btn-tool btn-outline-light btn-sm float-right">
-          <i class="fa fa-arrow-circle-left fa-lg" aria-hidden="true"></i>
-        </button>
-        <h5 class="text-light">Parcel Details</h5>
-      </div>
-    </div> -->
-
     <div class="row mt-2">
       <div class="col-12">
         <label for="orderReference" class="text-light">Order Reference</label>
         <input formControlName="orderReference" id="orderReference" type="text" class="form-control bg-dark" placeholder="Order Reference">
+        <span *ngIf="invalidInput('orderReference')" class="text-danger">Order Reference is required</span>
       </div>
     </div>
 
@@ -24,11 +13,13 @@
       <div class="col-6">
         <label for="weight" class="text-light">Weight</label>
         <input formControlName="weight" id="weight" type="text" class="form-control bg-dark" placeholder="Weight">
+        <span *ngIf="invalidInput('weight')" class="text-danger">Weight is required</span>
       </div>
 
       <div class="col-6">
         <label for="width" class="text-light">Width</label>
         <input formControlName="width" id="width" type="text" class="form-control bg-dark" placeholder="Width">
+        <span *ngIf="invalidInput('width')" class="text-danger">Width is required</span>
       </div>
     </div>
 
@@ -36,11 +27,13 @@
       <div class="col-6">
         <label for="length" class="text-light">Length</label>
         <input formControlName="length"  id="length" type="text" class="form-control bg-dark" placeholder="Length">
+        <span *ngIf="invalidInput('length')" class="text-danger">Length is required</span>
       </div>
 
       <div class="col-6">
         <label for="height" class="text-light">Height</label>
         <input formControlName="height" id="height" type="text" class="form-control bg-dark" placeholder="Height">
+        <span *ngIf="invalidInput('height')" class="text-danger">Height is required</span>
       </div>
     </div>
 

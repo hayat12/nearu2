@@ -5,14 +5,12 @@
     <ul class="list-group list-group-flush" *ngIf="courierServiceList.length > 0">
       <li *ngFor="let o of courierServiceList; let i = index" (click)="selectedCourier(o, i)" class="list-group-item bg-dark text-light" [ngClass]="_selectedCourier==o.businessId?'border border-light rounded':''">
         <div class="row">
-          <div class="col-3">
-            <img style="height: 35px !important; width: 35 !important;" [src]="businessLogo(o.businessLogo)" class="rounded" alt="Cinque Terre">
-          </div>
-          <div class="col-5">
-            {{o.businessName}}
+          <div class="col-8">
+            <img [src]="businessLogo(o.businessLogo)" class="avater-image" alt="Cinque Terre">
+            <label class="ml-3">{{o.businessName}}</label>
           </div>
           <div class="col-4">
-            <span class="float-right">{{o.amount | currency:"RM "}}</span>
+            <span class="float-right mt-2">{{o.amount | currency:"RM "}}</span>
           </div>
         </div>
       </li>

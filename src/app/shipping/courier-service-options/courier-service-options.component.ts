@@ -14,7 +14,6 @@ import { CourierInterface, CourierParamsInterface } from '../state/  courier/cou
 })
 export class CourierServiceOptionsComponent extends SettingHeader implements OnInit {
   _selectedCourier: any = "";
-  // _selectedCourierByIndex: any = null;
 
   courierServiceList:CourierInterface[] = [];
   constructor(
@@ -43,8 +42,13 @@ export class CourierServiceOptionsComponent extends SettingHeader implements OnI
     };
     this._service.get_CourierServicesOption(_params)
     .pipe(
-      tap((res)=>console.log(res)),
-      tap((resp)=>this.courierServiceList = resp)
+      tap((resp)=>this.courierServiceList = resp),
+      tap((res)=>{
+        if(res && res.length > 0){
+          this.selectedCourier(res[0], 0);
+          this._selectedCourier = res[0].businessId;
+        }
+      }),
     )
     .subscribe();
   }
@@ -57,7 +61,6 @@ export class CourierServiceOptionsComponent extends SettingHeader implements OnI
           ...courier
         }
       );
-      // this._selectedCourier = courier?.businessId;
     }
   }
 

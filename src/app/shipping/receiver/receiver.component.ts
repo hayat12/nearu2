@@ -50,13 +50,13 @@ createForm(){
     {
       receiverName: [null, [Validators.required]],
       receiverContact: [null, [Validators.required]],
-      receiverEmail: [null, [Validators.required]],
+      receiverEmail: [null],
       receiverAddress1: [null, [Validators.required]],
       receiverAddress2: [null],
       receiverCity: [null, [Validators.required]],
       receiverPostcode: [null, [Validators.required]],
-      receiverState: [null],
-      receiverCountryCode: ["MY", [Validators.required]],
+      receiverState: [null, [Validators.required]],
+      receiverCountryCode: [null, [Validators.required]],
     }
   );
 }

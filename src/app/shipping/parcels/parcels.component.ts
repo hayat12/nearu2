@@ -35,7 +35,7 @@ export class ParcelsComponent extends SettingHeader implements OnInit {
   checkOut(){
     this.modal = {
       title: "Check Out",
-      message: "Are you sure, you want to checkout ?",
+      message: "Confirm creation of parcels?",
       action: ActionsTypes.CHECK_OUT,
       confirm: "Check Out",
       close: "Close"

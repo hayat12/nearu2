@@ -17,21 +17,16 @@
     <ul class="list-group list-group-flush">
       <li *ngFor="let o of carts; let i=index" class="list-group-item bg-dark text-light">
         <div class="row">
-          <div class="col-3">
-            <img style="height: 35px;" [src]="businessLogo(o.courier.businessLogo)" class="rounded" alt="Cinque Terre">
+          <div class="col-6 d-flex">
+            <img [src]="businessLogo(o.courier.businessLogo)" class="avater-image" alt="Cinque Terre">
+            <div class="ml-3">
+              <h6>{{o.courier.businessName}}</h6>
+              <label >{{o.receiver.receiverName}}</label>
+            </div>
           </div>
-          <div class="col-5">
-            <h6>{{o.receiver.receiverName}}</h6>
-            <small>
-              {{o.courier.businessName}}
-            </small>
-          </div>
-          <div class="col-4">
-            <button type="button" (click)="deleteItem(i)" class="btn btn-tool float-right">
-              <i class="fa fa-times-circle fa-m text-danger" aria-hidden="true"></i>
-            </button>
-            <br>
-            <small class="float-right">{{o.courier.amount | currency:"RM "}}</small>
+          <div class="col-6">
+            <i (click)="deleteItem(i)" class="fa fa-times-circle fa-m text-danger float-right" aria-hidden="true"></i>
+            <small class="float-right mr-4">{{o.courier.amount | currency:"RM "}}</small>
           </div>
         </div>
       </li>

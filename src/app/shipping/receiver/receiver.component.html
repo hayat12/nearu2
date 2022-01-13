@@ -4,25 +4,28 @@
     <div class="row mt-2">
       <div class="col-12">
         <label for="name" class="text-light">Name</label>
-        <input formControlName="receiverName" id="name" type="text" class="form-control bg-dark" placeholder="Name">
+        <input formControlName="receiverName" id="name" type="text" class="form-control bg-dark" [ngClass]="{'is-invalid': invalidInput('receiverName')}"  placeholder="Name">
+        <span *ngIf="invalidInput('receiverName')" class="text-danger">Name is required</span>
       </div>
 
     </div>
     <div class="row">
       <div class="col-6 mt-2">
         <label for="phone" class="text-light">Phone No</label>
-        <input formControlName="receiverContact" id="phone" type="text" class="form-control bg-dark" placeholder="Phone No">
+        <input formControlName="receiverContact" id="phone" type="text" class="form-control bg-dark" [ngClass]="{'is-invalid': invalidInput('receiverContact')}"  placeholder="Phone No">
+        <span *ngIf="invalidInput('receiverContact')" class="text-danger">Phone No is required</span>
       </div>
 
       <div class="col-6 mt-2">
         <label for="email" class="text-light">Email</label>
-        <input formControlName="receiverEmail" id="email" type="text" class="form-control bg-dark" placeholder="Email">
+        <input formControlName="receiverEmail" id="email" type="text" class="form-control bg-dark" [ngClass]="{'is-invalid': invalidInput('receiverEmail')}"  placeholder="Email">
       </div>
     </div>
     <div class="row">
       <div class="col-12 mt-2">
         <label for="address1" class="text-light">Address 1</label>
-        <input formControlName="receiverAddress1" id="address1" type="text" class="form-control bg-dark" placeholder="Address 1">
+        <input formControlName="receiverAddress1" id="address1" type="text" class="form-control bg-dark" [ngClass]="{'is-invalid': invalidInput('receiverAddress1')}"  placeholder="Address 1">
+        <span *ngIf="invalidInput('receiverAddress1')" class="text-danger">Address 1 is required</span>
       </div>
 
       <div class="col-12 mt-2">
@@ -33,24 +36,28 @@
     <div class="row mt-2">
       <div class="col-6">
         <label for="postcode" class="text-light">Postcode</label>
-        <input formControlName="receiverPostcode" id="postcode" type="text" class="form-control bg-dark" placeholder="Postcode">
+        <input formControlName="receiverPostcode" id="postcode" type="text" class="form-control bg-dark" [ngClass]="{'is-invalid': invalidInput('receiverPostcode')}"  placeholder="Postcode">
+        <span *ngIf="invalidInput('receiverPostcode')" class="text-danger">Postcode is required</span>
       </div>
       <div class="col-6">
-        <label for="city" class="text-light">city</label>
-        <input formControlName="receiverCity" id="city" type="text" class="form-control bg-dark" placeholder="city">
+        <label for="city" class="text-light">City</label>
+        <input formControlName="receiverCity" id="city" type="text" class="form-control bg-dark" [ngClass]="{'is-invalid': invalidInput('receiverCity')}"  placeholder="City">
+        <span *ngIf="invalidInput('receiverCity')" class="text-danger">City is required</span>
       </div>
     </div>
 
     <div class="row mt-2">
       <div class="col-6">
         <label for="state" class="text-light">State</label>
-        <input formControlName="receiverState" id="state" type="text" class="form-control bg-dark" placeholder="State">
+        <input formControlName="receiverState" id="state" type="text" class="form-control bg-dark" [ngClass]="{'is-invalid': invalidInput('receiverState')}"  placeholder="State">
+        <span *ngIf="invalidInput('receiverState')" class="text-danger">State is required</span>
       </div>
       <div class="col-6">
         <label for="country" class="text-light">Country</label>
-        <select id="country" formControlName="receiverCountryCode" class="form-control bg-dark" placeholder="Country">
+        <select id="country" formControlName="receiverCountryCode" class="form-control bg-dark" [ngClass]="{'is-invalid': invalidInput('receiverCountryCode')}"  placeholder="Country">
           <option *ngFor="let c of countries" [value]="c.value">{{c.text}}</option>
         </select>
+        <span *ngIf="invalidInput('receiverCountryCode')" class="text-danger">Country is required</span>
       </div>
     </div>
 
