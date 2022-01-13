@@ -10,6 +10,7 @@ import { CompletedComponent } from './completed/completed.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ParcelsComponent } from './parcels/parcels.component';
+import { ServiceService } from './services/service.service';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { ParcelsComponent } from './parcels/parcels.component';
     FormsModule,
     HttpClientModule,
     ShippingRoutingModule
-  ]
+  ],
+  providers: [ServiceService]
 })
 export class ShippingModule { }

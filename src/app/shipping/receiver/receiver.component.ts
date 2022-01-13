@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
+import { ServiceService } from '../services/service.service';
 import { SettingHeader } from '../setting-header';
 import { receiverInfo } from '../state/receiver/receiver';
+import { SelectListInterface } from '../state/shipping.interface';
 
 @Component({
   selector: 'app-receiver',
@@ -10,15 +13,25 @@ import { receiverInfo } from '../state/receiver/receiver';
   styleUrls: ['./receiver.component.css']
 })
 export class ReceiverComponent extends SettingHeader implements OnInit {
+  countries:SelectListInterface[] = [];
   constructor(
     private router:Router,
     private activateRouter:ActivatedRoute,
-    private fb:FormBuilder
+    private fb:FormBuilder,
+    private _service:ServiceService
   ) { super()}
 
   ngOnInit(): void {
     this.createForm();
+    this.getCountries();
     this.loadLocalData();
+}
+getCountries(){
+  this._service.get_countries()
+  .pipe(
+    tap((res)=>this.countries = res)
+  )
+  .subscribe();
 }
 
 loadLocalData(){
@@ -43,7 +56,7 @@ createForm(){
       receiverCity: [null, [Validators.required]],
       receiverPostcode: [null, [Validators.required]],
       receiverState: [null],
-      receiverCountryCode: [null, [Validators.required]],
+      receiverCountryCode: ["MY", [Validators.required]],
     }
   );
 }

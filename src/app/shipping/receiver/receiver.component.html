@@ -59,8 +59,7 @@
       <div class="col-6">
         <label for="country" class="text-light">Country</label>
         <select id="country" formControlName="receiverCountryCode" class="form-control bg-dark" placeholder="Country">
-          <option readonle>Select Country</option>
-          <option value="MY">Malaysia</option>
+          <option *ngFor="let c of countries" [value]="c.value">{{c.text}}</option>
         </select>
       </div>
     </div>
