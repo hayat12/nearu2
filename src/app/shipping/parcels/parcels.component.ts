@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SettingHeader } from '../setting-header';
+import { sendParcelData } from '../state/parcel/parcels';
 import { CartInterface, ConfirmationModalInterface } from '../state/parcel/parcels.interface';
 import { ActionsTypes } from '../state/shipping.enum';
 declare var $:any;
@@ -57,6 +58,8 @@ export class ParcelsComponent extends SettingHeader implements OnInit {
       this.updateCart(this.carts);
     }
     if(this.modal.action==ActionsTypes.CHECK_OUT){
+      const x = sendParcelData(this.getCart());
+      console.log(x);
     }
   }
 }
