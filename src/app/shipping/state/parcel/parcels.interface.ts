@@ -51,7 +51,7 @@ export interface SendParcel {
   receiverPostcode: string;
   receiverState: string;
   receiverCountryCode: string;
-  pickupHubId: string;
+  pickupHubId?: string;
   courierId: string;
   lineItems: LineItem[];
   chargeLines: ChargeLine[];
