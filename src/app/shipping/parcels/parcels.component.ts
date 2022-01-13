@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EMPTY } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { ServiceService } from '../services/service.service';
 import { SettingHeader } from '../setting-header';
 import { sendParcelData } from '../state/parcel/parcels';
 import { CartInterface, ConfirmationModalInterface } from '../state/parcel/parcels.interface';
+import { SenderInterface } from '../state/sender/sender.interface';
 import { ActionsTypes } from '../state/shipping.enum';
 declare var $:any;
 @Component({
@@ -16,7 +20,8 @@ export class ParcelsComponent extends SettingHeader implements OnInit {
   modal:ConfirmationModalInterface;
   constructor(
     private router:Router,
-    private activateRouter:ActivatedRoute
+    private activateRouter:ActivatedRoute,
+    private _service:ServiceService
   ) { super() }
 
   ngOnInit(): void {
@@ -59,7 +64,18 @@ export class ParcelsComponent extends SettingHeader implements OnInit {
     }
     if(this.modal.action==ActionsTypes.CHECK_OUT){
       const x = sendParcelData(this.getCart());
-      console.log(x);
+      this.confirmSendParcel(x);
     }
+  }
+
+  confirmSendParcel(data:SenderInterface[]){
+    this._service.post_sendParcel(data)
+    .pipe(
+      tap((res)=>console.log(res)),
+      catchError((e)=>(
+        console.log(e),
+        EMPTY))
+    )
+    .subscribe();
   }
 }

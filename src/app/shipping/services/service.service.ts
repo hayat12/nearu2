@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { SelectListInterface } from '../state/shipping.interface';
 import { tap, map } from 'rxjs/operators';
 import { CourierInterface, CourierParamsInterface } from '../state/  courier/courier.interface';
+import { SenderInterface } from '../state/sender/sender.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -51,5 +52,9 @@ export class ServiceService {
       _param = _param.set("PostcodeTo", params.PostcodeTo)
     }
     return _param;
+  }
+
+  post_sendParcel(data:SenderInterface[]):Observable<any>{
+    return this.http.post<any>(`${this.baseUrl}/api/v1/public/parcel/send`, data);
   }
 }
