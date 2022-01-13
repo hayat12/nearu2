@@ -18,6 +18,10 @@ export class ParcelsComponent extends SettingHeader implements OnInit {
   carts:CartInterface[] = [];
   selectedItem:any;
   modal:ConfirmationModalInterface;
+  error = {
+    error: false,
+    message: ""
+  }
   constructor(
     private router:Router,
     private activateRouter:ActivatedRoute,
@@ -37,7 +41,6 @@ export class ParcelsComponent extends SettingHeader implements OnInit {
       close: "Close"
     };
     $('#confirmModal').modal('show');
-    // this.router.navigate(['./completed'], {relativeTo: this.activateRouter})
   }
 
   createNew(){
@@ -69,12 +72,23 @@ export class ParcelsComponent extends SettingHeader implements OnInit {
   }
 
   confirmSendParcel(data:SenderInterface[]){
+    this.error.error = false;
     this._service.post_sendParcel(data)
     .pipe(
-      tap((res)=>console.log(res)),
-      catchError((e)=>(
-        console.log(e),
-        EMPTY))
+      tap((res)=>this.resetLoacalStorage()),
+      tap((res)=>this.router.navigate(['./completed'], {relativeTo: this.activateRouter})),
+      catchError((e)=>{
+        let message = "An internal error occurred during your request!";
+        if(!this.isEmpty(e.error)){
+          message = e.error.error.message
+        }
+        this.error = {
+          error: true,
+          message: message
+        };
+        console.log(e.error.error.message);
+          return EMPTY;
+      })
     )
     .subscribe();
   }

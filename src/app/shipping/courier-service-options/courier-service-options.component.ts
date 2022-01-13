@@ -14,29 +14,9 @@ import { CourierInterface, CourierParamsInterface } from '../state/  courier/cou
 })
 export class CourierServiceOptionsComponent extends SettingHeader implements OnInit {
   _selectedCourier: any = "";
-  courierServiceList = [
-    {
-      "businessId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      "businessName": "eFMX",
-      "businessLogo": "assets/images/logo.png",
-      "amount": 10,
-      "taxAmount": 4
-    },
-    {
-      "businessId": "3fa85f64-5717-4562-bsewwdcas-23f66afa6",
-      "businessName": "FEDX",
-      "businessLogo": "assets/images/logo.png",
-      "amount": 101,
-      "taxAmount": 41
-    },
-    {
-      "businessId": "asdadaf3-5717-4562-b3fc-2c963f66afa6",
-      "businessName": "Ninja",
-      "businessLogo": "assets/images/logo.png",
-      "amount": 21,
-      "taxAmount": 5
-    }
-  ];
+  // _selectedCourierByIndex: any = null;
+
+  courierServiceList:CourierInterface[] = [];
   constructor(
     private router: Router,
     private activateRouter: ActivatedRoute,
@@ -55,15 +35,16 @@ export class CourierServiceOptionsComponent extends SettingHeader implements OnI
       ProductId:"H2D",
       ServiceTypeId:"EXP",
       PackageTypeId:"PAR",
-      // PostcodeFrom:null,
-      // CountryFrom:null,
-      // PostcodeTo:null,
-      // CountryTo:null,
-      // Weight:5
+      PostcodeFrom:this.getSender().shipperPostcode,
+      CountryFrom:this.getSender().shipperCountryCode,
+      PostcodeTo:this.getReceiver().receiverPostcode,
+      CountryTo:this.getReceiver().receiverCountryCode,
+      Weight: this.getParcelDetails().weight
     };
     this._service.get_CourierServicesOption(_params)
     .pipe(
-      tap((res)=>console.log(res))
+      tap((res)=>console.log(res)),
+      tap((resp)=>this.courierServiceList = resp)
     )
     .subscribe();
   }
@@ -76,7 +57,7 @@ export class CourierServiceOptionsComponent extends SettingHeader implements OnI
           ...courier
         }
       );
-      this._selectedCourier = courier?.businessId;
+      // this._selectedCourier = courier?.businessId;
     }
   }
 
@@ -106,7 +87,7 @@ export class CourierServiceOptionsComponent extends SettingHeader implements OnI
     this.router.navigate(['../'], { relativeTo: this.activateRouter });
   }
 
-  selectedCourier(courier: CourierInterface) {
+  selectedCourier(courier: CourierInterface, index:any) {
     this._selectedCourier = courier.businessId;
     this.form.patchValue(
       {

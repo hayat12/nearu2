@@ -53,8 +53,7 @@ export interface SendParcel {
   receiverCountryCode: string;
   pickupHubId?: string;
   courierId: string;
-  lineItems: LineItem[];
-  chargeLines: ChargeLine[];
+  chargeLines?: ChargeLine[];
 }
 
 export interface ChargeLine {
@@ -62,15 +61,4 @@ export interface ChargeLine {
   unitAmount?: number;
   unitTaxAmount?: number;
   quantity?: number;
-}
-
-export interface LineItem {
-  id?: string;
-  name?: string;
-  description?: string;
-  sku?: string;
-  weight?: number;
-  quantity?: number;
-  unitPrice?: number;
-  currency?: string;
 }

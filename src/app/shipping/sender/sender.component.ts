@@ -53,12 +53,12 @@ export class SenderComponent extends SettingHeader implements OnInit {
       {
         shipperName: ["", [Validators.required]],
         shipperContact: [null, [Validators.required]],
-        shipperEmail: [null, [Validators.required]],
+        shipperEmail: [null],
         shipperAddress1: [null, [Validators.required]],
         shipperAddress2: [null],
         shipperCity: [null, [Validators.required]],
         shipperPostcode: [null, [Validators.required]],
-        shipperState: [null],
+        shipperState: [null, [Validators.required]],
         shipperCountryCode: [null, [Validators.required]],
       }
     );

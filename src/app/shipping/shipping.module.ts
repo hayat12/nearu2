@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ParcelsComponent } from './parcels/parcels.component';
 import { ServiceService } from './services/service.service';
+import { AppHeaderComponent } from './app-header/app-header.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ServiceService } from './services/service.service';
     ParcelDetailsComponent,
     CourierServiceOptionsComponent,
     CompletedComponent,
-    ParcelsComponent
+    ParcelsComponent,
+    AppHeaderComponent
   ],
   imports: [
     CommonModule,

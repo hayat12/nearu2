@@ -1,23 +1,12 @@
+<app-app-header [title]="'Courier Services'"></app-app-header>
 <div class="container-fluid">
-  <div class="card bg-dark mt-3 border-top-0 border-left-0 border-right-0 border-bottom-1 border-light">
-    <div class="card-header">
-      <button [disabled]="invalidForm" type="button" (click)="confrim()" class="btn btn-outline-light btn-sm float-right ml-2">
-       Confirm
-       <i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
-      </button>
-      <button type="button" (click)="toParceDetails()" class="btn btn-outline-light btn-sm float-right">
-        <i class="fa fa-arrow-circle-left fa-lg" aria-hidden="true"></i>
-      </button>
-      <h5 class="text-light">Courier Services</h5>
-    </div>
-  </div>
 
   <div class="list mt-1">
-    <ul class="list-group list-group-flush">
-      <li *ngFor="let o of courierServiceList" (click)="selectedCourier(o)" class="list-group-item bg-dark text-light" [ngClass]="_selectedCourier==o.businessId?'border border-light rounded':''">
+    <ul class="list-group list-group-flush" *ngIf="courierServiceList.length > 0">
+      <li *ngFor="let o of courierServiceList; let i = index" (click)="selectedCourier(o, i)" class="list-group-item bg-dark text-light" [ngClass]="_selectedCourier==o.businessId?'border border-light rounded':''">
         <div class="row">
           <div class="col-3">
-            <img style="height: 35px;" [src]="o.businessLogo" class="rounded" alt="Cinque Terre">
+            <img style="height: 35px !important; width: 35 !important;" [src]="businessLogo(o.businessLogo)" class="rounded" alt="Cinque Terre">
           </div>
           <div class="col-5">
             {{o.businessName}}
@@ -28,5 +17,23 @@
         </div>
       </li>
     </ul>
+    <div *ngIf="courierServiceList.length < 1" class="text-light text-center mt-3">
+      No courier options available for the addresses provided.
+    </div>
   </div>
+
+  <div class="row mt-3">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <button *ngIf="courierServiceList.length > 0" type="button" (click)="confrim()" class="btn btn-light btn-sm btn-block">
+        Next
+      </button>
+
+      <button type="button" (click)="toParceDetails()" class="btn btn-outline-light mt-2 btn-sm btn-block">
+        Back
+      </button>
+    </div>
+    <div class="col-3"></div>
+  </div>
+
 </div>

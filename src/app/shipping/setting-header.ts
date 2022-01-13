@@ -9,9 +9,15 @@ import { EnumScreen } from "./state/shipping.enum";
 export class SettingHeader {
   form:FormGroup;
   readonly baseUrl:string = environment.baseUrl;
+  readonly logoBaseUrl:string = environment.logoBaseUrl;
+  readonly defaultIconLogo:string = 'assets/images/logo_default.png';
 
   get invalidForm():boolean{
     return this.form.invalid;
+  }
+
+  invalidInput(inputName:string):boolean{
+    return (this.form.get(inputName)?.touched && this.form.get(inputName)?.invalid)?true:false;
   }
 
   /**
@@ -128,6 +134,14 @@ export class SettingHeader {
       localStorage.removeItem(EnumScreen.RECEIVER);
       localStorage.removeItem(EnumScreen.COURIER_SERVICE_OPTIONS);
       localStorage.removeItem(EnumScreen.PARCEL_DETAILS);
+    }
+
+    resetLoacalStorage(){
+      localStorage.clear();
+    }
+
+    businessLogo(logo:string):string{
+      return this.isEmpty(logo)? this.defaultIconLogo:`${this.logoBaseUrl}/${logo}`;
     }
 
     /**
