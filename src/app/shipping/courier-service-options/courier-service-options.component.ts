@@ -29,7 +29,7 @@ export class CourierServiceOptionsComponent extends SettingHeader implements OnI
     },
     {
       "businessId": "asdadaf3-5717-4562-b3fc-2c963f66afa6",
-      "businessName": "Ninga",
+      "businessName": "Ninja",
       "businessLogo": "assets/images/logo.png",
       "amount": 21,
       "taxAmount": 5
