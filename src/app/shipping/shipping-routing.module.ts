@@ -10,7 +10,7 @@ import { SenderComponent } from './sender/sender.component';
 const routes: Routes = [
   {
     path: '',
-    component: ParcelsComponent
+    component: SenderComponent
   },
   {
     path: 'sender',
@@ -32,6 +32,10 @@ const routes: Routes = [
     path: 'completed',
     component: CompletedComponent
   },
+  {
+    path: 'parcels',
+    component: ParcelsComponent
+  }
 ];
 
 @NgModule({

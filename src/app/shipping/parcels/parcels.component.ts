@@ -30,9 +30,9 @@ export class ParcelsComponent extends SettingHeader implements OnInit {
 
   ngOnInit(): void {
     this.carts = this.getCart();
-    if(this.carts.length < 1){
-      this.createNew();
-    }
+    // if(this.carts.length < 1){
+    //   this.createNew();
+    // }
   }
 
   checkOut(){
@@ -48,9 +48,9 @@ export class ParcelsComponent extends SettingHeader implements OnInit {
 
   createNew(){
     if(Object.keys(this.getSender()).length < 1){
-      this.router.navigate(['./sender'], {relativeTo: this.activateRouter});
+      this.router.navigate(['../sender'], {relativeTo: this.activateRouter});
     }else{
-      this.router.navigate(['./receiver'], {relativeTo: this.activateRouter});
+      this.router.navigate(['../receiver'], {relativeTo: this.activateRouter});
     }
   }
 
@@ -83,7 +83,7 @@ export class ParcelsComponent extends SettingHeader implements OnInit {
     this._service.post_sendParcel(data)
     .pipe(
       tap((res)=>this.resetLoacalStorage()),
-      tap((res)=>this.router.navigate(['./completed'], {relativeTo: this.activateRouter})),
+      tap((res)=>this.router.navigate(['../completed'], {relativeTo: this.activateRouter})),
       catchError((e)=>{
         let message = "An internal error occurred during your request!";
         if(!this.isEmpty(e.error)){

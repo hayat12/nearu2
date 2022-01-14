@@ -99,7 +99,7 @@ export class CourierServiceOptionsComponent extends SettingHeader implements OnI
     const courier = courierServiceData(this.form.getRawValue());
     await this.setCourierDetails(courier);
     await this.setCart();
-    this.router.navigate(['../'], { relativeTo: this.activateRouter });
+    this.router.navigate(['../parcels'], { relativeTo: this.activateRouter });
   }
 
   selectedCourier(courier: CourierInterface) {
