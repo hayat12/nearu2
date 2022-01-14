@@ -12,6 +12,8 @@ import { EnumScreen } from '../state/shipping.enum';
 export class AppHeaderComponent extends SettingHeader implements OnInit {
   @Input() title: string = "Nearu";
 
+  isCartVisiable:boolean=true;
+
   @HostListener('window:beforeunload', [ '$event' ])
   beforeUnloadHandler(event:any) {
     const carts = this.getCart();
@@ -28,7 +30,9 @@ export class AppHeaderComponent extends SettingHeader implements OnInit {
     private activateRouter:ActivatedRoute,
   ) { super() }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.router.url.includes("completed")? this.isCartVisiable = false:true;
+  }
 
   get cartCount():number{
     if(Object.keys(this.getCart().length > 0)){
