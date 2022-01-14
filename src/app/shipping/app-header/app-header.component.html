@@ -5,4 +5,10 @@
   <div class="m-auto">
     <h6 class="text-light mt-2 mr-5 text-uppercase">{{title}}</h6>
   </div>
+  <div class="parcel-cart" (click)="viewCart()">
+    <span class="text-light custom-badge" style="font-size: 10px">
+      {{cartCount}}
+    </span>
+    <i class="fa fa-shopping-cart fa-lg text-warning mt-1"></i>
+  </div>
 </nav>

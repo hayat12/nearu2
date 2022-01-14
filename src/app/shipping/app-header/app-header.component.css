@@ -1,0 +1,17 @@
+.custom-badge{
+  padding: 2px;
+  font-size: 12px;
+  border-radius: 150%;
+  position: absolute;
+  top: 7px;
+  right: 13px;
+}
+
+/* .parcel-cart{
+  align-items: center;
+  text-align: center;
+  padding: 5px;
+  border: 1px solid white;
+  border-radius: 50%;
+  width: 40px;
+} */

@@ -24,6 +24,9 @@ export class CourierServiceOptionsComponent extends SettingHeader implements OnI
   ) { super() }
 
   ngOnInit(): void {
+    if(Object.keys(this.getParcelDetails()).length < 1){
+      this.router.navigate(['../parcel-details'], {relativeTo:this.activateRouter});
+    }
     this.createFrom();
     this.loadCourierServices();
     this.loadCourierData();

@@ -22,6 +22,9 @@ export class ReceiverComponent extends SettingHeader implements OnInit {
   ) { super()}
 
   ngOnInit(): void {
+    if(Object.keys(this.getSender()).length < 1){
+      this.router.navigate(['../sender'], {relativeTo:this.activateRouter});
+    }
     this.createForm();
     this.getCountries();
     this.loadLocalData();
@@ -66,11 +69,11 @@ createForm(){
       return this.form.markAllAsTouched();
     }
     this.setreceiver(receiverInfo(this.form.getRawValue()));
-    this.router.navigate(['../parcel-details'], {relativeTo:this.activateRouter})
+    this.router.navigate(['../parcel-details'], {relativeTo:this.activateRouter});
   }
 
   toSender(){
     this.setreceiver(receiverInfo(this.form.getRawValue()));
-    this.router.navigate(['../sender'], {relativeTo:this.activateRouter})
+    this.router.navigate(['../sender'], {relativeTo:this.activateRouter});
   }
 }

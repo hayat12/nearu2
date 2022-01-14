@@ -1,4 +1,7 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SettingHeader } from '../setting-header';
+import { EnumScreen } from '../state/shipping.enum';
 
 @Component({
   selector: 'app-app-header',
@@ -6,23 +9,34 @@ import { Component, HostListener, Input, OnInit } from '@angular/core';
   styleUrls: ['./app-header.component.css']
 })
 
-export class AppHeaderComponent implements OnInit {
+export class AppHeaderComponent extends SettingHeader implements OnInit {
   @Input() title: string = "Nearu";
-
-
-  @HostListener('window:unload', [ '$event' ])
-  unloadHandler(event:any) {
-    localStorage.setItem("ev 1", event);
-  }
 
   @HostListener('window:beforeunload', [ '$event' ])
   beforeUnloadHandler(event:any) {
-    localStorage.setItem("ev 2", event);
+    const carts = this.getCart();
+    if(Object.keys(carts).length < 1){
+      this.resetLoacalStorage();
+    }else{
+      this.clearInfo();
+      localStorage.removeItem((EnumScreen.SENDER));
+    }
   }
 
-  constructor() { }
+  constructor(
+    private router:Router,
+    private activateRouter:ActivatedRoute,
+  ) { super() }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  get cartCount():number{
+    if(Object.keys(this.getCart().length > 0)){
+      return this.getCart().length;
+    }
+    return 0;
   }
-
+  viewCart(){
+    this.router.navigate(['../parcels'], {relativeTo:this.activateRouter});
+  }
 }

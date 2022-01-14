@@ -20,6 +20,9 @@ export class ParcelDetailsComponent extends SettingHeader implements OnInit {
   }
 
   ngOnInit(): void {
+    if(Object.keys(this.getReceiver()).length < 1){
+      this.router.navigate(['../receiver'], {relativeTo:this.activateRouter});
+    }
     this.createForm();
     this.loadLocalData();
   }
