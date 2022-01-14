@@ -130,7 +130,7 @@ export class SettingHeader {
      */
 
     clearInfo(){
-      localStorage.removeItem(EnumScreen.SENDER);
+      // localStorage.removeItem(EnumScreen.SENDER);
       localStorage.removeItem(EnumScreen.RECEIVER);
       localStorage.removeItem(EnumScreen.COURIER_SERVICE_OPTIONS);
       localStorage.removeItem(EnumScreen.PARCEL_DETAILS);
@@ -151,6 +151,7 @@ export class SettingHeader {
     if(value==null) return true;
     if(value=="") return true;
     if(value==undefined) return true;
+    if(value=={}) return true;
     return false;
   }
 }

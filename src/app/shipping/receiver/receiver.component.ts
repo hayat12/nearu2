@@ -56,7 +56,7 @@ createForm(){
       receiverCity: [null, [Validators.required]],
       receiverPostcode: [null, [Validators.required]],
       receiverState: [null, [Validators.required]],
-      receiverCountryCode: [null, [Validators.required]],
+      receiverCountryCode: ["MY", [Validators.required]],
     }
   );
 }
@@ -70,6 +70,7 @@ createForm(){
   }
 
   toSender(){
+    this.setreceiver(receiverInfo(this.form.getRawValue()));
     this.router.navigate(['../sender'], {relativeTo:this.activateRouter})
   }
 }

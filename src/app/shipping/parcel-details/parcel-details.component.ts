@@ -55,6 +55,7 @@ export class ParcelDetailsComponent extends SettingHeader implements OnInit {
     this.router.navigate(['../courier-service-options'], {relativeTo: this.activateRouter});
   }
   toReceiver(){
+    this.setParcelDetails(parcelDetails(this.form.getRawValue()));
     this.router.navigate(['../receiver'], {relativeTo: this.activateRouter});
   }
 

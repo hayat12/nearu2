@@ -47,7 +47,11 @@ export class ParcelsComponent extends SettingHeader implements OnInit {
   }
 
   createNew(){
-    this.router.navigate(['./sender'], {relativeTo: this.activateRouter})
+    if(Object.keys(this.getSender()).length < 1){
+      this.router.navigate(['./sender'], {relativeTo: this.activateRouter});
+    }else{
+      this.router.navigate(['./receiver'], {relativeTo: this.activateRouter});
+    }
   }
 
   deleteItem(i:any){

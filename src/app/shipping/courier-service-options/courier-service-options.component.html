@@ -3,7 +3,7 @@
 
   <div class="list mt-1">
     <ul class="list-group list-group-flush" *ngIf="courierServiceList.length > 0">
-      <li *ngFor="let o of courierServiceList; let i = index" (click)="selectedCourier(o, i)" class="list-group-item bg-dark text-light" [ngClass]="_selectedCourier==o.businessId?'border border-light rounded':''">
+      <li *ngFor="let o of courierServiceList; let i = index" (click)="selectedCourier(o)" class="list-group-item bg-dark text-light" [ngClass]="_selectedCourier==o.businessId?'border border-light rounded':''">
         <div class="row">
           <div class="col-8">
             <img [src]="businessLogo(o.businessLogo)" class="avater-image" alt="Cinque Terre">
@@ -24,7 +24,7 @@
     <div class="col-3"></div>
     <div class="col-6">
       <button *ngIf="courierServiceList.length > 0" type="button" (click)="confrim()" class="btn btn-light btn-sm btn-block">
-        Next
+        Confirm
       </button>
 
       <button type="button" (click)="toParceDetails()" class="btn btn-outline-light mt-2 btn-sm btn-block">

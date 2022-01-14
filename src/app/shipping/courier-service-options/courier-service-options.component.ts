@@ -45,8 +45,10 @@ export class CourierServiceOptionsComponent extends SettingHeader implements OnI
       tap((resp)=>this.courierServiceList = resp),
       tap((res)=>{
         if(res && res.length > 0){
-          this.selectedCourier(res[0], 0);
-          this._selectedCourier = res[0].businessId;
+          const courier = this.getCourierDetails();
+          if(Object.keys(courier).length < 1){
+            this.selectedCourier(res[0]);
+          }
         }
       }),
     )
@@ -55,12 +57,13 @@ export class CourierServiceOptionsComponent extends SettingHeader implements OnI
 
   loadCourierData(){
     const courier = this.getCourierDetails();
-    if(!this.isEmpty(courier)){
+    if(Object.keys(courier).length < 1){
       this.form.patchValue(
         {
           ...courier
         }
       );
+      this._selectedCourier = courier.businessId;
     }
   }
 
@@ -77,6 +80,8 @@ export class CourierServiceOptionsComponent extends SettingHeader implements OnI
   }
 
   toParceDetails() {
+    const courier = courierServiceData(this.form.getRawValue());
+    this.setCourierDetails(courier);
     this.router.navigate(['../parcel-details'], { relativeTo: this.activateRouter });
   }
 
@@ -90,7 +95,7 @@ export class CourierServiceOptionsComponent extends SettingHeader implements OnI
     this.router.navigate(['../'], { relativeTo: this.activateRouter });
   }
 
-  selectedCourier(courier: CourierInterface, index:any) {
+  selectedCourier(courier: CourierInterface) {
     this._selectedCourier = courier.businessId;
     this.form.patchValue(
       {

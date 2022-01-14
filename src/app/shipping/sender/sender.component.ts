@@ -59,7 +59,7 @@ export class SenderComponent extends SettingHeader implements OnInit {
         shipperCity: [null, [Validators.required]],
         shipperPostcode: [null, [Validators.required]],
         shipperState: [null, [Validators.required]],
-        shipperCountryCode: [null, [Validators.required]],
+        shipperCountryCode: ["MY", [Validators.required]],
       }
     );
   }
