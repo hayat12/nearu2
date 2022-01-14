@@ -10,7 +10,7 @@
               <source [srcset]="businessLogo(o.businessLogo)" type="image/svg+xml">
               <img [src]="businessLogo(o.businessLogo)" class="img-fluid img-thumbnail business-avater-logo" [alt]="o.businessName">
             </picture>
-            <label class="ml-2">{{o.businessName}}</label>
+            <strong class="ml-2">{{o.businessName}}</strong>
           </div>
           <div class="col-4">
             <span class="float-right mt-2">{{o.amount | currency:"RM "}}</span>
