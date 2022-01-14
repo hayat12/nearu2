@@ -6,7 +6,8 @@
       <li *ngFor="let o of courierServiceList; let i = index" (click)="selectedCourier(o)" class="list-group-item bg-dark text-light" [ngClass]="_selectedCourier==o.businessId?'border border-light rounded':''">
         <div class="row">
           <div class="col-8">
-            <img [src]="businessLogo(o.businessLogo)" class="avater-image" alt="Cinque Terre">
+            <img [src]="businessLogo(o.businessLogo)" class="img-fluid rounded" alt="logo" style="height:45px;width:auto; max-width:45px;">
+            <!-- <img [src]="businessLogo(o.businessLogo)" class="avater-image" alt="Cinque Terre"> -->
             <label class="ml-3">{{o.businessName}}</label>
           </div>
           <div class="col-4">

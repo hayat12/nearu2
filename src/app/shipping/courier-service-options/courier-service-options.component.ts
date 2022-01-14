@@ -46,7 +46,7 @@ export class CourierServiceOptionsComponent extends SettingHeader implements OnI
       tap((res)=>{
         if(res && res.length > 0){
           const courier = this.getCourierDetails();
-          if(Object.keys(courier).length < 1){
+          if(this.isEmpty(courier.businessId)){
             this.selectedCourier(res[0]);
           }
         }
@@ -57,13 +57,15 @@ export class CourierServiceOptionsComponent extends SettingHeader implements OnI
 
   loadCourierData(){
     const courier = this.getCourierDetails();
-    if(Object.keys(courier).length > 0){
+    if(this.isEmpty(courier.businessId)){
       this.form.patchValue(
         {
           ...courier
         }
       );
       this._selectedCourier = courier.businessId;
+    }else{
+      this.selectedCourier(courier);
     }
   }
 
@@ -81,7 +83,9 @@ export class CourierServiceOptionsComponent extends SettingHeader implements OnI
 
   toParceDetails() {
     const courier = courierServiceData(this.form.getRawValue());
-    this.setCourierDetails(courier);
+    if(!this.isEmpty(courier.businessId)){
+      this.setCourierDetails(courier);
+    }
     this.router.navigate(['../parcel-details'], { relativeTo: this.activateRouter });
   }
 

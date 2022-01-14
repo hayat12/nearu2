@@ -18,7 +18,7 @@
       <li *ngFor="let o of carts; let i=index" class="list-group-item bg-dark text-light">
         <div class="row">
           <div class="col-6 d-flex">
-            <img [src]="businessLogo(o.courier.businessLogo)" class="avater-image" alt="Cinque Terre">
+            <img [src]="businessLogo(o.courier.businessLogo)" class="img-fluid rounded" alt="logo" style="height:45px;width:auto; max-width:45px;">
             <div class="ml-3">
               <h6>{{o.courier.businessName}}</h6>
               <label >{{o.receiver.receiverName}}</label>
