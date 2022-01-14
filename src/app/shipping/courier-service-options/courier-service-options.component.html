@@ -1,4 +1,4 @@
-<app-app-header [title]="'Courier Services'"></app-app-header>
+<app-app-header [title]="'Courier Options'"></app-app-header>
 <div class="container-fluid">
 
   <div class="list mt-1">
@@ -6,8 +6,10 @@
       <li *ngFor="let o of courierServiceList; let i = index" (click)="selectedCourier(o)" class="list-group-item bg-dark text-light" [ngClass]="_selectedCourier==o.businessId?'border border-light rounded':''">
         <div class="row">
           <div class="col-8">
-            <img [src]="businessLogo(o.businessLogo)" class="img-fluid rounded" alt="logo" style="height:45px;width:auto; max-width:45px;">
-            <!-- <img [src]="businessLogo(o.businessLogo)" class="avater-image" alt="Cinque Terre"> -->
+            <picture>
+              <source [srcset]="businessLogo(o.businessLogo)" type="image/svg+xml">
+              <img [src]="businessLogo(o.businessLogo)" style="max-height: 45px; max-width: 45px;" class="img-fluid img-thumbnail" [alt]="o.businessName">
+            </picture>
             <label class="ml-3">{{o.businessName}}</label>
           </div>
           <div class="col-4">

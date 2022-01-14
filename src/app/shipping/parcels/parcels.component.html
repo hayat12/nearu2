@@ -1,9 +1,9 @@
-<app-app-header [title]="'Parcels'"></app-app-header>
+<app-app-header [title]="'My Parcels'"></app-app-header>
 <div class="container-fluid">
 
   <div class="mt-3">
     <button type="button" (click)="createNew()" class="btn btn-outline-light ml-2 btn-sm float-right">
-      <i class="fa fa-plus" aria-hidden="true"></i> New
+      <i class="fa fa-plus" aria-hidden="true"></i> Add More
     </button>
     <br>
     <hr class="bg-light">
@@ -18,7 +18,10 @@
       <li *ngFor="let o of carts; let i=index" class="list-group-item bg-dark text-light">
         <div class="row">
           <div class="col-6 d-flex">
-            <img [src]="businessLogo(o.courier.businessLogo)" class="img-fluid rounded" alt="logo" style="height:45px;width:auto; max-width:45px;">
+            <picture>
+              <source [srcset]="businessLogo(o.courier.businessLogo)" type="image/svg+xml">
+              <img [src]="businessLogo(o.courier.businessLogo)" style="max-height: 45px; max-width: 45px;" class="img-fluid img-thumbnail" [alt]="o.courier.businessName">
+            </picture>
             <div class="ml-3">
               <h6>{{o.courier.businessName}}</h6>
               <label >{{o.receiver.receiverName}}</label>
