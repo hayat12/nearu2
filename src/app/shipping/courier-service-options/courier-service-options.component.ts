@@ -57,7 +57,7 @@ export class CourierServiceOptionsComponent extends SettingHeader implements OnI
 
   loadCourierData(){
     const courier = this.getCourierDetails();
-    if(Object.keys(courier).length < 1){
+    if(Object.keys(courier).length > 0){
       this.form.patchValue(
         {
           ...courier
