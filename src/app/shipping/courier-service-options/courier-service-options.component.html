@@ -6,9 +6,9 @@
       <li *ngFor="let o of courierServiceList; let i = index" (click)="selectedCourier(o)" class="list-group-item bg-dark text-light" [ngClass]="_selectedCourier==o.businessId?'border border-warning rounded':''">
         <div class="row">
           <div class="col-8">
-            <picture>
+            <picture class="business-avater-logo">
               <source [srcset]="businessLogo(o.businessLogo)" type="image/svg+xml">
-              <img [src]="businessLogo(o.businessLogo)" style="max-height: 45px; max-width: 45px;" class="img-fluid img-thumbnail" [alt]="o.businessName">
+              <img [src]="businessLogo(o.businessLogo)" class="img-fluid img-thumbnail" [alt]="o.businessName">
             </picture>
             <label class="ml-2">{{o.businessName}}</label>
           </div>
@@ -26,11 +26,11 @@
   <div class="row mt-3">
     <div class="col-3"></div>
     <div class="col-6">
-      <button *ngIf="courierServiceList.length > 0" type="button" (click)="confrim()" class="btn btn-warning btn-sm btn-block">
+      <button *ngIf="courierServiceList.length > 0" type="button" (click)="confrim()" class="btn btn-warning btn-sm btn-block text-uppercase">
         Confirm
       </button>
 
-      <button type="button" (click)="toParceDetails()" class="btn btn-outline-warning mt-2 btn-sm btn-block">
+      <button type="button" (click)="toParceDetails()" class="btn btn-outline-warning mt-2 btn-sm btn-block text-uppercase">
         Back
       </button>
     </div>
