@@ -70,6 +70,10 @@ export class SenderComponent extends SettingHeader implements OnInit {
     }
     const data = senderInfo(this.form.getRawValue());
     this.setSender(data);
-    this.router.navigate(['../receiver'], {relativeTo: this.activateRouter})
+    if (this.router.url.includes("sender")) {
+      this.router.navigate(['../receiver'], { relativeTo: this.activateRouter });
+    } else {
+      this.router.navigate(['./receiver'], { relativeTo: this.activateRouter });
+    }
   }
 }
