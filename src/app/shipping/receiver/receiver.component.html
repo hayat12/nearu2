@@ -36,7 +36,7 @@
     <div class="row mt-2">
       <div class="col-6">
         <label for="postcode" class="text-light">Postcode</label>
-        <input formControlName="receiverPostcode" id="postcode" type="text" class="form-control bg-dark" [ngClass]="{'is-invalid': invalidInput('receiverPostcode')}"  placeholder="Postcode">
+        <input formControlName="receiverPostcode" name="postcode" id="postcode" type="text" class="form-control bg-dark" [ngClass]="{'is-invalid': invalidInput('receiverPostcode')}"  placeholder="Postcode">
         <span *ngIf="invalidInput('receiverPostcode')" class="text-danger">Postcode is required</span>
       </div>
       <div class="col-6">
@@ -54,7 +54,7 @@
       </div>
       <div class="col-6">
         <label for="country" class="text-light">Country</label>
-        <select id="country" formControlName="receiverCountryCode" class="form-control bg-dark" [ngClass]="{'is-invalid': invalidInput('receiverCountryCode')}"  placeholder="Country">
+        <select id="country" name="country" formControlName="receiverCountryCode" class="form-control bg-dark" [ngClass]="{'is-invalid': invalidInput('receiverCountryCode')}"  placeholder="Country">
           <option *ngFor="let c of countries" [value]="c.value">{{c.text}}</option>
         </select>
         <span *ngIf="invalidInput('receiverCountryCode')" class="text-danger">Country is required</span>
