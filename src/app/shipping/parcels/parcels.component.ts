@@ -87,7 +87,9 @@ export class ParcelsComponent extends SettingHeader implements OnInit {
       catchError((e)=>{
         let message = "An internal error occurred during your request!";
         if(!this.isEmpty(e.error)){
-          message = e.error.error.message
+          if (!this.isEmpty(e.error.error)){
+            message = e.error.error.message
+          }
         }
         this.error = {
           error: true,
