@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { SelectListInterface } from '../state/shipping.interface';
   templateUrl: './receiver.component.html',
   styleUrls: ['./receiver.component.css']
 })
-export class ReceiverComponent extends SettingHeader implements OnInit {
+export class ReceiverComponent extends SettingHeader implements OnInit, OnDestroy {
   countries:SelectListInterface[] = [];
   constructor(
     private router:Router,
@@ -75,5 +75,9 @@ createForm(){
   toSender(){
     this.setreceiver(receiverInfo(this.form.getRawValue()));
     this.router.navigate(['../sender'], {relativeTo:this.activateRouter});
+  }
+
+  ngOnDestroy(): void {
+      this.form.reset();
   }
 }

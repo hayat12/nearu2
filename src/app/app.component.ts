@@ -13,8 +13,7 @@ export class AppComponent implements OnInit{
   }
   ngOnInit(): void {
     const cart:any = localStorage.getItem(EnumScreen.CART);
-    console.log(cart);
-    if(Object.keys(JSON.parse(cart)).length > 0){
+    if(!!cart && Object.keys(JSON.parse(cart)).length > 0){
       this.router.navigate(['nearu/parcels']);
     }
   }

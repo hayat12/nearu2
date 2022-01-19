@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { CourierInterface, CourierParamsInterface } from '../state/  courier/cou
   templateUrl: './courier-service-options.component.html',
   styleUrls: ['./courier-service-options.component.css']
 })
-export class CourierServiceOptionsComponent extends SettingHeader implements OnInit {
+export class CourierServiceOptionsComponent extends SettingHeader implements OnInit, OnDestroy {
   _selectedCourier: any = "";
 
   courierServiceList:CourierInterface[] = [];
@@ -109,5 +109,11 @@ export class CourierServiceOptionsComponent extends SettingHeader implements OnI
         ...courier
       }
     )
+  }
+
+  ngOnDestroy(): void {
+      this.form.reset();
+      this._selectedCourier = null;
+      this.courierServiceList = [];
   }
 }

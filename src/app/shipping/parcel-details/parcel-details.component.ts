@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SettingHeader } from '../setting-header';
@@ -9,7 +9,7 @@ import { parcelDetails } from '../state/parcel/parcels';
   templateUrl: './parcel-details.component.html',
   styleUrls: ['./parcel-details.component.css']
 })
-export class ParcelDetailsComponent extends SettingHeader implements OnInit {
+export class ParcelDetailsComponent extends SettingHeader implements OnInit, OnDestroy {
 
   constructor(
     private router:Router,
@@ -60,6 +60,10 @@ export class ParcelDetailsComponent extends SettingHeader implements OnInit {
   toReceiver(){
     this.setParcelDetails(parcelDetails(this.form.getRawValue()));
     this.router.navigate(['../receiver'], {relativeTo: this.activateRouter});
+  }
+
+  ngOnDestroy(): void {
+      this.form.reset();
   }
 
 }

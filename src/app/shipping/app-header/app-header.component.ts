@@ -43,4 +43,8 @@ export class AppHeaderComponent extends SettingHeader implements OnInit {
   viewCart(){
     this.router.navigate(['nearu/parcels']);
   }
+
+  toHome(){
+    this.router.navigate(['nearu/receiver']);
+  }
 }

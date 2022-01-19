@@ -101,10 +101,13 @@ export class SettingHeader {
          courier: this.getCourierDetails(),
          parcel_details: this.getParcelDetails()
        }
-       const _carts:CartInterface[] = [
-         _cart,
-         ...this.getCart()
-       ];
+       let _carts:CartInterface[] = [];
+       _carts = this.getCart();
+       _carts.push(_cart);
+      // _carts = [
+      //    _cart,
+      //    ...this.getCart()
+      //  ];
       await localStorage.setItem(EnumScreen.CART, JSON.stringify(_carts));
       await this.clearInfo();
     }
