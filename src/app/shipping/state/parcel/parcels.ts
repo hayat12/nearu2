@@ -31,7 +31,7 @@ export function sendParcelData(carts: CartInterface[]): SendParcel[] {
       receiverAddress1: o.receiver.receiverAddress1,
       receiverAddress2: o.receiver.receiverAddress2,
       receiverCity: o.receiver.receiverCity,
-      receiverPostcode: o.receiver.receiverCountryCode,
+      receiverPostcode: o.receiver.receiverPostcode,
       receiverState: o.receiver.receiverState,
       receiverCountryCode: o.receiver.receiverCountryCode,
       courierId: o.courier.businessId,
