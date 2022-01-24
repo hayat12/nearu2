@@ -2,10 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
+import { AppConstants } from 'src/app/shared/constants/app.constants';
 import { ServiceService } from '../services/service.service';
 import { SettingHeader } from '../setting-header';
 import { receiverInfo } from '../state/receiver/receiver';
-import { SelectListInterface } from '../state/shipping.interface';
+import { PhoneCodeSelectListInterface, SelectListInterface } from '../state/shipping.interface';
 
 @Component({
   selector: 'app-receiver',
@@ -14,6 +15,7 @@ import { SelectListInterface } from '../state/shipping.interface';
 })
 export class ReceiverComponent extends SettingHeader implements OnInit, OnDestroy {
   countries:SelectListInterface[] = [];
+  phoneCodeList:PhoneCodeSelectListInterface[] = [];
   constructor(
     private router:Router,
     private activateRouter:ActivatedRoute,
@@ -28,6 +30,7 @@ export class ReceiverComponent extends SettingHeader implements OnInit, OnDestro
     this.createForm();
     this.getCountries();
     this.loadLocalData();
+    this.getPhoneCode();
 }
 getCountries(){
   this._service.get_countries()
@@ -52,7 +55,8 @@ createForm(){
   this.form = this.fb.group(
     {
       receiverName: [null, [Validators.required]],
-      receiverContact: [null, [Validators.required]],
+      receiverContact: [null, [Validators.required, Validators.pattern(AppConstants.FORM_VALIDATION.PHONE_NO)]],
+      receiverPhoneCode: ["60", [Validators.required]],
       receiverEmail: [null],
       receiverAddress1: [null, [Validators.required]],
       receiverAddress2: [null],
@@ -62,6 +66,14 @@ createForm(){
       receiverCountryCode: ["MY", [Validators.required]],
     }
   );
+}
+
+public getPhoneCode(){
+  this._service.get_phoneCodes()
+  .pipe(
+    tap((res)=>this.phoneCodeList=res)
+  )
+  .subscribe();
 }
 
   toParceDetials(){

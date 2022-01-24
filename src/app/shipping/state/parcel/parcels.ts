@@ -16,7 +16,8 @@ export function sendParcelData(carts: CartInterface[]): SendParcel[] {
       weight: o.parcel_details.weight,
 
       shipperName: o.sender.shipperName,
-      shipperContact: o.sender.shipperContact,
+      shipperContact: o.sender.shipperPhoneCode+""+o.sender.shipperContact,
+      shipperPhoneCode: o.sender.shipperPhoneCode,
       shipperEmail: o.sender.shipperEmail,
       shipperAddress1: o.sender.shipperAddress1,
       shipperAddress2: o.sender.shipperAddress2,
@@ -26,7 +27,8 @@ export function sendParcelData(carts: CartInterface[]): SendParcel[] {
       shipperCountryCode: o.sender.shipperCountryCode,
 
       receiverName: o.receiver.receiverName,
-      receiverContact: o.receiver.receiverContact,
+      receiverContact: o.receiver.receiverPhoneCode+""+o.receiver.receiverContact,
+      receiverPhoneCode: o.receiver.receiverPhoneCode,
       receiverEmail: o.receiver.receiverEmail,
       receiverAddress1: o.receiver.receiverAddress1,
       receiverAddress2: o.receiver.receiverAddress2,
