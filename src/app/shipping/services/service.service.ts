@@ -6,11 +6,13 @@ import { PhoneCodeSelectListInterface, SelectListInterface } from '../state/ship
 import { tap, map } from 'rxjs/operators';
 import { CourierInterface, CourierParamsInterface } from '../state/  courier/courier.interface';
 import { SenderInterface } from '../state/sender/sender.interface';
+import { UploadProofInterface } from '../state/upload/upload-proof.interface';
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceService {
   readonly baseUrl: Required<string> = environment.baseUrl;
+  readonly mediaBaseUrl: Required<string> = environment.mediaBaseUrl;
 
   constructor(
     private http: HttpClient
@@ -59,5 +61,9 @@ export class ServiceService {
   }
   get_phoneCodes(): Observable<PhoneCodeSelectListInterface[]> {
     return this.http.get<PhoneCodeSelectListInterface[]>(`${this.baseUrl}/api/v1/country/selectlist/phone`);
+  }
+
+  post_uploadProof(data:UploadProofInterface):Observable<any>{
+    return this.http.post<any>(`${this.mediaBaseUrl}/upload`, data);
   }
 }

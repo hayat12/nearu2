@@ -12,3 +12,10 @@ export enum ActionsTypes{
   DELETE = "Delete",
   CHECK_OUT= "Checkout"
 }
+
+export enum UploadProofENUM{
+  GENERAL="GENERAL",
+  PROFILE="PROFILE",
+  PROOF="PROOF",
+  LABEL="LABEL"
+}

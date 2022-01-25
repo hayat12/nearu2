@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   baseUrl: 'https://stagapp.near-u.asia',
-  logoBaseUrl: 'https://stagmedia.near-u.asia/uploads'
+  mediaBaseUrl: 'https://stagmedia.near-u.asia',
 };
 
 /*

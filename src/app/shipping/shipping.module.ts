@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ParcelsComponent } from './parcels/parcels.component';
 import { ServiceService } from './services/service.service';
 import { AppHeaderComponent } from './app-header/app-header.component';
+import { UploadProofComponent } from './upload-proof/upload-proof.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { AppHeaderComponent } from './app-header/app-header.component';
     CourierServiceOptionsComponent,
     CompletedComponent,
     ParcelsComponent,
-    AppHeaderComponent
+    AppHeaderComponent,
+    UploadProofComponent
   ],
   imports: [
     CommonModule,
