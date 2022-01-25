@@ -10,7 +10,7 @@ import { EnumScreen } from "./state/shipping.enum";
 export class SettingHeader {
   form:FormGroup;
   readonly baseUrl:string = environment.baseUrl;
-  readonly logoBaseUrl:string = environment.mediaBaseUrl;
+  readonly logoBaseUrl:string = `${environment.mediaBaseUrl}/uploads`;
   readonly defaultIconLogo:string = 'assets/images/logo_default.png';
 
   get invalidForm():boolean{
@@ -145,7 +145,7 @@ export class SettingHeader {
     }
 
     businessLogo(logo:string):string{
-      return this.isEmpty(logo)? this.defaultIconLogo:`${this.logoBaseUrl}/'uploads'/${logo}`;
+      return this.isEmpty(logo)? this.defaultIconLogo:`${this.logoBaseUrl}/${logo}`;
     }
 
     /**
