@@ -6,7 +6,7 @@ import { CourierServiceOptionsComponent } from './courier-service-options/courie
 import { ParcelsComponent } from './parcels/parcels.component';
 import { ReceiverComponent } from './receiver/receiver.component';
 import { SenderComponent } from './sender/sender.component';
-import { UploadProofComponent } from './upload-proof/upload-proof.component';
+import { UploadProofComponent } from '../upload-proof/upload-proof.component';
 
 const routes: Routes = [
   {
@@ -37,10 +37,6 @@ const routes: Routes = [
     path: 'parcels',
     component: ParcelsComponent
   },
-  {
-    path: 'upload-proof',
-    component: UploadProofComponent
-  }
 ];
 
 @NgModule({

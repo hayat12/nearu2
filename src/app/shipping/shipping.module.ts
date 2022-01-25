@@ -11,8 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ParcelsComponent } from './parcels/parcels.component';
 import { ServiceService } from './services/service.service';
-import { AppHeaderComponent } from './app-header/app-header.component';
-import { UploadProofComponent } from './upload-proof/upload-proof.component';
+import { UploadProofComponent } from '../upload-proof/upload-proof.component';
+import { SharedModuleModule } from '../shared/shared-module.module';
 
 
 @NgModule({
@@ -23,15 +23,14 @@ import { UploadProofComponent } from './upload-proof/upload-proof.component';
     CourierServiceOptionsComponent,
     CompletedComponent,
     ParcelsComponent,
-    AppHeaderComponent,
-    UploadProofComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    ShippingRoutingModule
+    ShippingRoutingModule,
+    SharedModuleModule
   ],
   providers: [ServiceService]
 })

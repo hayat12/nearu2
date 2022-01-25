@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { ServiceService } from '../services/service.service';
-import { SettingHeader } from '../setting-header';
-import { UploadProofENUM } from '../state/shipping.enum';
-import { UploadProofInterface } from '../state/upload/upload-proof.interface';
+import { ServiceService } from '../shipping/services/service.service';
+import { SettingHeader } from '../shipping/setting-header';
+import { UploadProofENUM } from '../shipping/state/shipping.enum';
+import { UploadProofInterface } from '../shipping/state/upload/upload-proof.interface';
 
 @Component({
   selector: 'app-upload-proof',

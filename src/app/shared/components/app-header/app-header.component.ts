@@ -1,7 +1,7 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SettingHeader } from '../setting-header';
-import { EnumScreen } from '../state/shipping.enum';
+import { SettingHeader } from '../../../shipping/setting-header';
+import { EnumScreen } from '../../../shipping/state/shipping.enum';
 
 @Component({
   selector: 'app-app-header',
@@ -11,6 +11,7 @@ import { EnumScreen } from '../state/shipping.enum';
 
 export class AppHeaderComponent extends SettingHeader implements OnInit {
   @Input() title: string = "Nearu";
+  @Input() hasCard = true;
 
   isCartVisiable:boolean=true;
 
@@ -32,6 +33,9 @@ export class AppHeaderComponent extends SettingHeader implements OnInit {
 
   ngOnInit(): void {
     this.router.url.includes("completed")? this.isCartVisiable = false:true;
+    if (!this.hasCard) {
+      this.isCartVisiable = false;
+    }
   }
 
   get cartCount():number{

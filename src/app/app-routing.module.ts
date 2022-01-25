@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UploadProofComponent } from './upload-proof/upload-proof.component';
 
 const routes: Routes = [
   {
@@ -8,8 +9,12 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () => import('./shipping/shipping.module').then(m => m.ShippingModule)
-      }
+      },
     ]
+  },
+  {
+    path: 'upload-proof',
+    component: UploadProofComponent
   },
   { path: '**', redirectTo: '/nearu' },
 ];
