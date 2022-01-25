@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CountrySelectList, PhoneCodeSelectListInterface, SelectListInterface } from '../state/shipping.interface';
 import { tap, map } from 'rxjs/operators';
-import { CourierInterface, CourierParamsInterface } from '../state/  courier/courier.interface';
+import { CourierInterface, CourierParamsInterface } from '../state/courier/courier.interface';
 import { SenderInterface } from '../state/sender/sender.interface';
 import { UploadProofInterface } from '../state/upload/upload-proof.interface';
 @Injectable({
