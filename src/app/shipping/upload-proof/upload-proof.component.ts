@@ -44,8 +44,7 @@ export class UploadProofComponent extends SettingHeader implements OnInit {
       this.invalidLinke = true;
     }
     this.id = this.activateRoute.snapshot.queryParams.id;
-    var x = Math.random();
-    this.form.get("fileName")?.patchValue(fileName+""+x);
+    this.form.get("fileName")?.patchValue(fileName);
   }
 
   ngOnInit(): void {this.createForm();}
