@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { ServiceService } from '../services/service.service';
 import { SettingHeader } from '../setting-header';
@@ -14,6 +15,8 @@ import { UploadProofInterface } from '../state/upload/upload-proof.interface';
 export class UploadProofComponent extends SettingHeader implements OnInit {
   selectedFile :FileList;
   fileToUpload: File | null = null;
+  id:string = "";
+  invalidLinke:boolean = false;
   uploadResult = {
     success: true,
     message: "",
@@ -21,32 +24,35 @@ export class UploadProofComponent extends SettingHeader implements OnInit {
   }
   constructor(
     private fb:FormBuilder,
+    private activateRoute:ActivatedRoute,
+    private router:Router,
     private _service:ServiceService) {
     super();
-    this.createForm();
   }
 
   createForm(){
     this.form = this.fb.group(
       {
-        fileFormat: [""],
-        fileName: [""],
-        fileData: [""],
-        uploadType: [UploadProofENUM.PROOF],
-        x1: 20,
-        y1: 20,
-        x2: 20,
-        y2: 20
+        fileFormat: [null, [Validators.required]],
+        fileName: [null, [Validators.required]],
+        fileData: [null, [Validators.required]],
+        uploadType: [UploadProofENUM.PROOF]
       }
     );
+    const fileName = this.activateRoute.snapshot.queryParams.filename;
+    if (this.isEmpty(fileName)) {
+      this.invalidLinke = true;
+    }
+    this.id = this.activateRoute.snapshot.queryParams.id;
+    var x = Math.random();
+    this.form.get("fileName")?.patchValue(fileName+""+x);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {this.createForm();}
 
   handleFileInput(event:any){
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      let fileName = file.name;
       let fileType = file.type;
       if(!this.isEmpty(fileType)){
         fileType = fileType.split("/") as [];
@@ -54,13 +60,6 @@ export class UploadProofComponent extends SettingHeader implements OnInit {
           fileType = fileType.at(-1);
         }
       }
-      if(!this.isEmpty(fileName)){
-        fileName = fileName.split(".") as [];
-        if(fileName.length > 0){
-          fileName = fileName.at(0);
-        }
-      }
-      this.form.get("fileName")?.patchValue(fileName);
       this.form.get("fileFormat")?.patchValue(fileType);
       let fileData;
 
@@ -70,13 +69,18 @@ export class UploadProofComponent extends SettingHeader implements OnInit {
         fileData = reader.result;
       };
       setTimeout(() => {
-        // console.log(reader.result);
-        this.form.get("fileData")?.patchValue(reader.result);
+        var bs64img:any = reader.result;
+        bs64img = bs64img.split(",");
+        bs64img = bs64img[1];
+        this.form.get("fileData")?.patchValue(bs64img);
+        if (this.form.valid) {
+          this.uploadResult.success = true;
+        }
       }, 100);
 
-      // reader.onerror = function (error) {
-      //   console.log('Error: ', error);
-      // };
+      reader.onerror = function (error) {
+        console.log('Error: ', error);
+      };
     }
   }
 
@@ -86,12 +90,14 @@ export class UploadProofComponent extends SettingHeader implements OnInit {
       this.uploadResult.success = false;
       this.uploadResult.message = "Please select the file before upload";
       this.uploadResult.alertType = "alert alert-danger";
+      return this.form.markAllAsTouched();
     }
-    console.log(data);
     this._service.post_uploadProof(data)
     .pipe(
       tap((res)=>console.log()),
-      tap((res)=>console.log())
+      tap((res)=>this.router.navigate(['../completed'], {relativeTo: this.activateRoute, queryParams:{
+        message: "Photo successfully uploaded."
+      }}))
     )
     .subscribe();
   }

@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -63,7 +63,10 @@ export class ServiceService {
     return this.http.get<PhoneCodeSelectListInterface[]>(`${this.baseUrl}/api/v1/country/selectlist/phone`);
   }
 
-  post_uploadProof(data:UploadProofInterface):Observable<any>{
-    return this.http.post<any>(`${this.mediaBaseUrl}/upload`, data);
+  post_uploadProof(data:any):Observable<any>{
+    const header = new HttpHeaders().set(
+      "Content-Type", "application/json"
+    );
+    return this.http.post<any>(`${this.mediaBaseUrl}/upload`, data, {headers: header});
   }
 }

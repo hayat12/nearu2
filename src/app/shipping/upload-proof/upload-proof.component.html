@@ -1,8 +1,25 @@
 <app-app-header [title]="'Upload Proof'"></app-app-header>
 <div class="container-fluid">
   <div class="cart">
-    <div class="cart-body">
+    <div *ngIf="invalidLinke" class="card-body">
+      <div class="alert alert-danger">
+        Invalid link provided
+      </div>
+    </div>
+    <div *ngIf="!uploadResult.success" class="card-body">
+      <div class="alert alert-danger">
+        {{uploadResult.message}}
+      </div>
+    </div>
+    <div *ngIf="!invalidLinke" class="cart-body">
       <div class="mt-2"></div>
+      <div class="row mt-3">
+       <div class="col-12">
+         <label class="text-light" for="manifestid">Manifest No:</label></div>
+        <div class="col-12">
+          <h3 class="text-light">{{id}}</h3>
+        </div>
+      </div>
       <div class="row mt-3">
         <div class="col-12 text-center">
           <input (change)="handleFileInput($event)" type="file" style="min-width: 100%; border: 1px solid white; border-radius: 5px; padding: 5px;">
