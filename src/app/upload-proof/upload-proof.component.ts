@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { ServiceService } from '../shipping/services/service.service';
-import { SettingHeader } from '../shipping/setting-header';
-import { UploadProofENUM } from '../shipping/state/shipping.enum';
-import { UploadProofInterface } from '../shipping/state/upload/upload-proof.interface';
+import { ServiceService } from 'src/app/services/service.service';
+import { UploadProofENUM } from '../state/upload/shipping.enum';
 
 @Component({
   selector: 'app-upload-proof',
   templateUrl: './upload-proof.component.html',
   styleUrls: ['./upload-proof.component.css']
 })
-export class UploadProofComponent extends SettingHeader implements OnInit {
+export class UploadProofComponent implements OnInit {
+  form:FormGroup;
   selectedFile :FileList;
   fileToUpload: File | null = null;
   id:string = "";
@@ -26,9 +25,7 @@ export class UploadProofComponent extends SettingHeader implements OnInit {
     private fb:FormBuilder,
     private activateRoute:ActivatedRoute,
     private router:Router,
-    private _service:ServiceService) {
-    super();
-  }
+    private _service:ServiceService) {}
 
   createForm(){
     this.form = this.fb.group(
@@ -94,11 +91,18 @@ export class UploadProofComponent extends SettingHeader implements OnInit {
     this._service.post_uploadProof(data)
     .pipe(
       tap((res)=>console.log()),
-      tap((res)=>this.router.navigate(['../completed'], {relativeTo: this.activateRoute, queryParams:{
+      tap((res)=>this.router.navigate(['../success'], {relativeTo: this.activateRoute, queryParams:{
         message: "Photo successfully uploaded."
       }}))
     )
     .subscribe();
   }
 
+  isEmpty(value:any):boolean{
+    if (value==null)return true;
+    if (value==undefined)return true;
+    if (value=="")return true;
+    if (value instanceof Array && value.length < 1)return true;
+    return false;
+  }
 }

@@ -1,17 +1,22 @@
 import { NgModule } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UploadProofComponent } from './upload-proof/upload-proof.component';
-import { SharedModuleModule } from './shared/shared-module.module';
+import { CompletedComponent } from './completed/completed.component';
+import { AppHeaderComponent } from './shared/components/app-header/app-header.component';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UploadProofComponent
+    UploadProofComponent,
+    CompletedComponent,
+    AppHeaderComponent,
+    NotFoundPageComponent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +24,6 @@ import { SharedModuleModule } from './shared/shared-module.module';
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
-    SharedModuleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
