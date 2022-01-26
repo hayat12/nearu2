@@ -6,6 +6,7 @@ import { CartInterface, ParcelDetailsInterface } from "./state/parcel/parcels.in
 import { ReceiverInterface } from "./state/receiver/receiver.interface";
 import { SenderInterface } from './state/sender/sender.interface';
 import { EnumScreen } from "./state/shipping.enum";
+import { CountrySelectList } from "./state/shipping.interface";
 
 export class SettingHeader {
   form:FormGroup;
@@ -146,6 +147,18 @@ export class SettingHeader {
 
     businessLogo(logo:string):string{
       return this.isEmpty(logo)? this.defaultIconLogo:`${this.logoBaseUrl}/${logo}`;
+    }
+
+    /**
+     * store list of countries
+     */
+    setCountries(countries:CountrySelectList[]){
+      localStorage.setItem(EnumScreen.COUNTRIES,JSON.stringify(countries));
+    }
+
+    getCountriesFromLocal():CountrySelectList[]{
+      let counries:any = localStorage.getItem(EnumScreen.COUNTRIES);
+      return JSON.parse(counries) as CountrySelectList[];
     }
 
     /**

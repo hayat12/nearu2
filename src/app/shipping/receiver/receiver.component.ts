@@ -14,72 +14,78 @@ import { CountrySelectList, PhoneCodeSelectListInterface, SelectListInterface } 
   styleUrls: ['./receiver.component.css']
 })
 export class ReceiverComponent extends SettingHeader implements OnInit, OnDestroy {
-  countries:CountrySelectList[] = [];
+  countries: CountrySelectList[] = [];
   constructor(
-    private router:Router,
-    private activateRouter:ActivatedRoute,
-    private fb:FormBuilder,
-    private _service:ServiceService
-  ) { super()}
+    private router: Router,
+    private activateRouter: ActivatedRoute,
+    private fb: FormBuilder,
+    private _service: ServiceService
+  ) { super() }
 
   ngOnInit(): void {
-    if(Object.keys(this.getSender()).length < 1){
-      this.router.navigate(['../sender'], {relativeTo:this.activateRouter});
+    if (Object.keys(this.getSender()).length < 1) {
+      this.router.navigate(['../sender'], { relativeTo: this.activateRouter });
     }
     this.createForm();
     this.getCountries();
     this.loadLocalData();
-}
-getCountries(){
-  this._service.get_countries()
-  .pipe(
-    tap((res)=>this.countries = res)
-  )
-  .subscribe();
-}
+  }
+  getCountries(){
+    var ctrz = this.getCountriesFromLocal();
+    if(!!ctrz && ctrz.length > 0){
+      this.countries = ctrz;
+    }else{
+    this._service.get_countries()
+      .pipe(
+        tap((res) => this.setCountries(res)),
+        tap((res) => this.countries = res)
+      )
+      .subscribe();
+    }
+  }
 
-loadLocalData(){
-  const receiver = this.getReceiver();
-  if(!this.isEmpty(receiver)){
-    this.form.patchValue(
+  loadLocalData() {
+    const receiver = this.getReceiver();
+    if (!this.isEmpty(receiver)) {
+      this.form.patchValue(
+        {
+          ...receiver
+        }
+      );
+    }
+  }
+
+  createForm() {
+    this.form = this.fb.group(
       {
-        ...receiver
+        receiverName: [null, [Validators.required]],
+        receiverContact: [null, [Validators.required, Validators.pattern(AppConstants.FORM_VALIDATION.PHONE_NO)]],
+        receiverPhoneCode: ["60", [Validators.required]],
+        receiverEmail: [null],
+        receiverAddress1: [null, [Validators.required]],
+        receiverAddress2: [null],
+        receiverCity: [null, [Validators.required]],
+        receiverPostcode: [null, [Validators.required]],
+        receiverState: [null, [Validators.required]],
+        receiverCountryCode: ["MY", [Validators.required]],
       }
     );
   }
-}
 
-createForm(){
-  this.form = this.fb.group(
-    {
-      receiverName: [null, [Validators.required]],
-      receiverContact: [null, [Validators.required, Validators.pattern(AppConstants.FORM_VALIDATION.PHONE_NO)]],
-      receiverPhoneCode: ["60", [Validators.required]],
-      receiverEmail: [null],
-      receiverAddress1: [null, [Validators.required]],
-      receiverAddress2: [null],
-      receiverCity: [null, [Validators.required]],
-      receiverPostcode: [null, [Validators.required]],
-      receiverState: [null, [Validators.required]],
-      receiverCountryCode: ["MY", [Validators.required]],
-    }
-  );
-}
-
-  toParceDetials(){
-    if(this.form.invalid){
+  toParceDetials() {
+    if (this.form.invalid) {
       return this.form.markAllAsTouched();
     }
     this.setreceiver(receiverInfo(this.form.getRawValue()));
-    this.router.navigate(['../parcel-details'], {relativeTo:this.activateRouter});
+    this.router.navigate(['../parcel-details'], { relativeTo: this.activateRouter });
   }
 
-  toSender(){
+  toSender() {
     this.setreceiver(receiverInfo(this.form.getRawValue()));
-    this.router.navigate(['../sender'], {relativeTo:this.activateRouter});
+    this.router.navigate(['../sender'], { relativeTo: this.activateRouter });
   }
 
   ngOnDestroy(): void {
-      this.form.reset();
+    this.form.reset();
   }
 }
