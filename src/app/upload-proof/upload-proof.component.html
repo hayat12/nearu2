@@ -22,7 +22,7 @@
       </div>
       <div class="row mt-3">
         <div class="col-12 text-center">
-          <input (change)="handleFileInput($event)" accept="image/*" capture="camera" type="file" class="file-input">
+          <input type="file" capture="camera" accept="image/*" (change)="handleFileInput($event)" class="file-input">
         </div>
       </div>
       <div class="row mt-3">

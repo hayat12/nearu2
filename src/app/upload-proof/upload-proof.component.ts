@@ -15,6 +15,7 @@ export class UploadProofComponent implements OnInit {
   selectedFile :FileList;
   fileToUpload: File | null = null;
   id:string = "";
+  message = "";
   invalidLinke:boolean = false;
   uploadResult = {
     success: true,
@@ -86,6 +87,7 @@ export class UploadProofComponent implements OnInit {
       this.uploadResult.success = false;
       this.uploadResult.message = "Please select the file before upload";
       this.uploadResult.alertType = "alert alert-danger";
+      this.message = JSON.stringify(this.form.getRawValue());
       return this.form.markAllAsTouched();
     }
     this._service.post_uploadProof(data)
