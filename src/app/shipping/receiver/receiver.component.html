@@ -13,10 +13,6 @@
     <div class="row mt-2">
       <label for="phone" class="col-12 text-light">Phone No</label>
       <div [ngClass]="ngselect.isOpen?'col-6':'col-4'">
-        <!-- <select formControlName="receiverPhoneCode" class="form-control bg-dark" name="phonecode" id="phonecode">
-          <option *ngFor="let c of countries" [value]="c.phonePrefixValue">{{c.name}} {{c.phonePrefixText}}</option>
-        </select> -->
-
         <ng-select [clearable]='false' class="custom" formControlName="receiverPhoneCode" #ngselect placeholder="Phone No">
           <ng-option *ngFor="let c of countries" [value]="c.phonePrefixValue">
             <ng-container *ngIf="ngselect.isOpen; else elseColsedCountryOption">
