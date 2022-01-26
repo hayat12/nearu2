@@ -13,6 +13,7 @@ import { ParcelsComponent } from './parcels/parcels.component';
 import { ServiceService } from './services/service.service';
 import { UploadProofComponent } from '../upload-proof/upload-proof.component';
 import { SharedModuleModule } from '../shared/shared-module.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { SharedModuleModule } from '../shared/shared-module.module';
     FormsModule,
     HttpClientModule,
     ShippingRoutingModule,
-    SharedModuleModule
+    SharedModuleModule,
+    NgSelectModule
   ],
   providers: [ServiceService]
 })

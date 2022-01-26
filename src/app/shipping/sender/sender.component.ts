@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
@@ -6,7 +6,7 @@ import { AppConstants } from 'src/app/shared/constants/app.constants';
 import { ServiceService } from '../services/service.service';
 import { SettingHeader } from '../setting-header';
 import { senderInfo } from '../state/sender/sender';
-import { CountrySelectList, PhoneCodeSelectListInterface, SelectListInterface } from '../state/shipping.interface';
+import { CountrySelectList } from '../state/shipping.interface';
 
 @Component({
   selector: 'app-sender',
@@ -14,7 +14,9 @@ import { CountrySelectList, PhoneCodeSelectListInterface, SelectListInterface } 
   styleUrls: ['./sender.component.css']
 })
 export class SenderComponent extends SettingHeader implements OnInit {
+
   countries:CountrySelectList[] = [];
+  isPhoneDropddownOpen:boolean=false;
   constructor(
     private router:Router,
     private activateRouter:ActivatedRoute,
@@ -77,5 +79,10 @@ export class SenderComponent extends SettingHeader implements OnInit {
     } else {
       this.router.navigate(['./receiver'], { relativeTo: this.activateRouter });
     }
+  }
+
+  displayTextOption(){
+    // ngselect.open?name:phonePrefixText
+    return "Hello";
   }
 }
