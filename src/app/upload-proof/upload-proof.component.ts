@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { ServiceService } from 'src/app/services/service.service';
 import { UploadProofENUM } from '../state/upload/shipping.enum';
 
@@ -17,6 +18,7 @@ export class UploadProofComponent implements OnInit {
   id:string = "";
   message = "";
   invalidLinke:boolean = false;
+  isLoading:boolean=false;
   uploadResult = {
     success: true,
     message: "",
@@ -90,12 +92,20 @@ export class UploadProofComponent implements OnInit {
       this.message = JSON.stringify(this.form.getRawValue());
       return this.form.markAllAsTouched();
     }
+    this.isLoading = true;
     this._service.post_uploadProof(data)
     .pipe(
-      tap((res)=>console.log()),
+      tap((res)=>this.isLoading = false),
       tap((res)=>this.router.navigate(['../success'], {relativeTo: this.activateRoute, queryParams:{
         message: "Photo successfully uploaded."
-      }}))
+      }})),
+      catchError((e)=>{
+        return (
+          this.uploadResult.success = false,
+          this.uploadResult.message = "Upload failed",
+          this.isLoading = false,
+          EMPTY);
+      })
     )
     .subscribe();
   }
