@@ -24,6 +24,10 @@ export class UploadProofComponent implements OnInit {
     message: "",
     alertType: ""
   }
+
+  width = 100;
+  height = 100;
+
   constructor(
     private fb:FormBuilder,
     private activateRoute:ActivatedRoute,
@@ -50,8 +54,11 @@ export class UploadProofComponent implements OnInit {
   ngOnInit(): void {this.createForm();}
 
   handleFileInput(event:any){
+    const img = new Image();
+
     if (event.target.files.length > 0) {
-      const file = event.target.files[0];
+      let file = event.target.files[0];
+
       let fileType = file.type;
       if(!this.isEmpty(fileType)){
         fileType = fileType.split("/") as [];
@@ -59,23 +66,43 @@ export class UploadProofComponent implements OnInit {
           fileType = fileType[1]
         }
       }
+
       this.form.get("fileFormat")?.patchValue(fileType);
-      let fileData;
+      let fileData:any;
+      let resizedFileData:any;
 
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = function (){
+
+      reader.onload = function (event){
         fileData = reader.result;
+        const imgElement:any = document.createElement("img");
+        imgElement.src = event.target?.result;
+
+        imgElement.onload = function(e:any){
+          const canvas = document.createElement("canvas");
+          const MAX_WIDTH = 1280;
+          const MAX_HIDTH = 1280;
+
+          const scaleSize = MAX_WIDTH/e.target.width;
+          canvas.width = MAX_WIDTH;
+          canvas.height = e.target.height * scaleSize;
+          const ctx = canvas.getContext("2d");
+          ctx?.drawImage(e.target, 0, 0, canvas.width, canvas.height);
+          const srcEncoded = ctx?.canvas.toDataURL(e.target, "image/jpeg");
+          resizedFileData = srcEncoded;
+        }
       };
+
       setTimeout(() => {
-        var bs64img:any = reader.result;
+        var bs64img:any = resizedFileData;
         bs64img = bs64img.split(",");
         bs64img = bs64img[1];
         this.form.get("fileData")?.patchValue(bs64img);
         if (this.form.valid) {
           this.uploadResult.success = true;
         }
-      }, 100);
+      }, 200);
 
       reader.onerror = function (error) {
         console.log('Error: ', error);
