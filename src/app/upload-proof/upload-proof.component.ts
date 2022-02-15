@@ -86,7 +86,7 @@ export class UploadProofComponent implements OnInit {
 
           const scaleSize = MAX_WIDTH/e.target.width;
           canvas.width = MAX_WIDTH;
-          canvas.height = e.target.height * scaleSize;
+          canvas.height = MAX_HIDTH; //e.target.height * scaleSize;
           const ctx = canvas.getContext("2d");
           ctx?.drawImage(e.target, 0, 0, canvas.width, canvas.height);
           const srcEncoded = ctx?.canvas.toDataURL(e.target, "image/jpeg");
