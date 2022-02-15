@@ -12,13 +12,13 @@ import { UploadProofENUM } from '../state/upload/shipping.enum';
   styleUrls: ['./upload-proof.component.css']
 })
 export class UploadProofComponent implements OnInit {
-  form:FormGroup;
-  selectedFile :FileList;
+  form: FormGroup;
+  selectedFile: FileList;
   fileToUpload: File | null = null;
-  id:string = "";
+  id: string = "";
   message = "";
-  invalidLinke:boolean = false;
-  isLoading:boolean=false;
+  invalidLinke: boolean = false;
+  isLoading: boolean = false;
   uploadResult = {
     success: true,
     message: "",
@@ -29,12 +29,12 @@ export class UploadProofComponent implements OnInit {
   height = 100;
 
   constructor(
-    private fb:FormBuilder,
-    private activateRoute:ActivatedRoute,
-    private router:Router,
-    private _service:ServiceService) {}
+    private fb: FormBuilder,
+    private activateRoute: ActivatedRoute,
+    private router: Router,
+    private _service: ServiceService) { }
 
-  createForm(){
+  createForm() {
     this.form = this.fb.group(
       {
         fileFormat: [null, [Validators.required]],
@@ -51,51 +51,68 @@ export class UploadProofComponent implements OnInit {
     this.form.get("fileName")?.patchValue(fileName);
   }
 
-  ngOnInit(): void {this.createForm();}
+  ngOnInit(): void { this.createForm(); }
 
-  handleFileInput(event:any){
+  handleFileInput(event: any) {
     const img = new Image();
 
     if (event.target.files.length > 0) {
       let file = event.target.files[0];
 
       let fileType = file.type;
-      if(!this.isEmpty(fileType)){
+      if (!this.isEmpty(fileType)) {
         fileType = fileType.split("/") as [];
-        if(fileType.length > 0){
+        if (fileType.length > 0) {
           fileType = fileType[1]
         }
       }
 
       this.form.get("fileFormat")?.patchValue(fileType);
-      let fileData:any;
-      let resizedFileData:any;
+      let fileData: any;
+      let resizedFileData: any;
 
       const reader = new FileReader();
       reader.readAsDataURL(file);
 
-      reader.onload = function (event){
+      reader.onload = function (event) {
         fileData = reader.result;
-        const imgElement:any = document.createElement("img");
+        const imgElement: any = document.createElement("img");
         imgElement.src = event.target?.result;
 
-        imgElement.onload = function(e:any){
+        imgElement.onload = function (e: any) {
           const canvas = document.createElement("canvas");
           const MAX_WIDTH = 1280;
           const MAX_HIDTH = 1280;
-
-          const scaleSize = MAX_WIDTH/e.target.width;
-          canvas.width = MAX_WIDTH;
-          canvas.height = MAX_HIDTH; //e.target.height * scaleSize;
-          const ctx = canvas.getContext("2d");
-          ctx?.drawImage(e.target, 0, 0, canvas.width, canvas.height);
-          const srcEncoded = ctx?.canvas.toDataURL(e.target, "image/jpeg");
-          resizedFileData = srcEncoded;
+          console.log("------ Original Dimensions --------");
+          console.log("H:", e.target.height, "X W:", e.target.width);
+          console.log("------ end --------");
+          if (e.target.width > MAX_WIDTH || e.target.height > MAX_HIDTH) {
+            if (e.target.width >= e.target.height) {
+              const scaleSize = MAX_WIDTH / e.target.width;
+              canvas.width = MAX_WIDTH;
+              canvas.height = e.target.height * scaleSize;
+            } else {
+              const scaleSize = MAX_HIDTH / e.target.height;
+              canvas.height = MAX_HIDTH;
+              canvas.width = e.target.width * scaleSize;
+            }
+            console.log("------ Resized Dimensions --------");
+            console.log(canvas.height, "X", canvas.width);
+            console.log("------ end --------");
+            const ctx = canvas.getContext("2d");
+            ctx?.drawImage(e.target, 0, 0, canvas.width, canvas.height);
+            const srcEncoded = ctx?.canvas.toDataURL(e.target, "image/jpeg");
+            resizedFileData = srcEncoded;
+          } else {
+            resizedFileData = fileData;
+          }
+          var demo_img: any = document.querySelector("#demo-img");
+          demo_img.src = resizedFileData;
         }
       };
 
       setTimeout(() => {
-        var bs64img:any = resizedFileData;
+        var bs64img: any = resizedFileData;
         bs64img = bs64img.split(",");
         bs64img = bs64img[1];
         this.form.get("fileData")?.patchValue(bs64img);
@@ -110,7 +127,7 @@ export class UploadProofComponent implements OnInit {
     }
   }
 
-  upload(){
+  upload() {
     const data = this.form.getRawValue();
     if (this.form.invalid) {
       this.uploadResult.success = false;
@@ -121,27 +138,29 @@ export class UploadProofComponent implements OnInit {
     }
     this.isLoading = true;
     this._service.post_uploadProof(data)
-    .pipe(
-      tap((res)=>this.isLoading = false),
-      tap((res)=>this.router.navigate(['../success'], {relativeTo: this.activateRoute, queryParams:{
-        message: "Photo successfully uploaded."
-      }})),
-      catchError((e)=>{
-        return (
-          this.uploadResult.success = false,
-          this.uploadResult.message = "Upload failed",
-          this.isLoading = false,
-          EMPTY);
-      })
-    )
-    .subscribe();
+      .pipe(
+        tap((res) => this.isLoading = false),
+        tap((res) => this.router.navigate(['../success'], {
+          relativeTo: this.activateRoute, queryParams: {
+            message: "Photo successfully uploaded."
+          }
+        })),
+        catchError((e) => {
+          return (
+            this.uploadResult.success = false,
+            this.uploadResult.message = "Upload failed",
+            this.isLoading = false,
+            EMPTY);
+        })
+      )
+      .subscribe();
   }
 
-  isEmpty(value:any):boolean{
-    if (value==null)return true;
-    if (value==undefined)return true;
-    if (value=="")return true;
-    if (value instanceof Array && value.length < 1)return true;
+  isEmpty(value: any): boolean {
+    if (value == null) return true;
+    if (value == undefined) return true;
+    if (value == "") return true;
+    if (value instanceof Array && value.length < 1) return true;
     return false;
   }
 }
