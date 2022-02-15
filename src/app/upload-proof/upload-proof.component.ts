@@ -56,7 +56,7 @@ export class UploadProofComponent implements OnInit {
       if(!this.isEmpty(fileType)){
         fileType = fileType.split("/") as [];
         if(fileType.length > 0){
-          fileType = fileType.at(-1);
+          fileType = fileType[1]
         }
       }
       this.form.get("fileFormat")?.patchValue(fileType);
