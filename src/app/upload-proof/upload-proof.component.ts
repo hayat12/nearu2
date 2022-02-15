@@ -81,19 +81,18 @@ export class UploadProofComponent implements OnInit {
 
         imgElement.onload = function (e: any) {
           const canvas = document.createElement("canvas");
-          const MAX_WIDTH = 1280;
-          const MAX_HIDTH = 1280;
+          const MAX_SIZE = 1280;
           console.log("------ Original Dimensions --------");
           console.log("H:", e.target.height, "X W:", e.target.width);
           console.log("------ end --------");
-          if (e.target.width > MAX_WIDTH || e.target.height > MAX_HIDTH) {
+          if (e.target.width > MAX_SIZE || e.target.height > MAX_SIZE) {
             if (e.target.width >= e.target.height) {
-              const scaleSize = MAX_WIDTH / e.target.width;
-              canvas.width = MAX_WIDTH;
+              const scaleSize = MAX_SIZE / e.target.width;
+              canvas.width = MAX_SIZE;
               canvas.height = e.target.height * scaleSize;
             } else {
-              const scaleSize = MAX_HIDTH / e.target.height;
-              canvas.height = MAX_HIDTH;
+              const scaleSize = MAX_SIZE / e.target.height;
+              canvas.height = MAX_SIZE;
               canvas.width = e.target.width * scaleSize;
             }
             console.log("------ Resized Dimensions --------");
