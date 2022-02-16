@@ -82,9 +82,7 @@ export class UploadProofComponent implements OnInit {
         imgElement.onload = function (e: any) {
           const canvas = document.createElement("canvas");
           const MAX_SIZE = 1280;
-          console.log("------ Original Dimensions --------");
-          console.log("H:", e.target.height, "X W:", e.target.width);
-          console.log("------ end --------");
+
           if (e.target.width > MAX_SIZE || e.target.height > MAX_SIZE) {
             if (e.target.width >= e.target.height) {
               const scaleSize = MAX_SIZE / e.target.width;
@@ -95,9 +93,7 @@ export class UploadProofComponent implements OnInit {
               canvas.height = MAX_SIZE;
               canvas.width = e.target.width * scaleSize;
             }
-            console.log("------ Resized Dimensions --------");
-            console.log(canvas.height, "X", canvas.width);
-            console.log("------ end --------");
+
             const ctx = canvas.getContext("2d");
             ctx?.drawImage(e.target, 0, 0, canvas.width, canvas.height);
             const srcEncoded = ctx?.canvas.toDataURL(e.target, "image/jpeg");
@@ -105,8 +101,8 @@ export class UploadProofComponent implements OnInit {
           } else {
             resizedFileData = fileData;
           }
-          var demo_img: any = document.querySelector("#demo-img");
-          demo_img.src = resizedFileData;
+          // var demo_img: any = document.querySelector("#demo-img");
+          // demo_img.src = resizedFileData;
         }
       };
 
